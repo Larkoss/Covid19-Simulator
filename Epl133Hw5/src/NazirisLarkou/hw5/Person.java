@@ -8,7 +8,17 @@ public abstract class Person {
 
 	private final static double groundPossibility = 0.4;
 	private final static double personPossibility = 0.75;
-
+	
+  /**
+   * Class constructor specifying x and y
+   * @param x the int X position
+   * @param y the int Y position
+   */
+  public Person(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+  
 	/**
 	 * @return the x
 	 */
