@@ -2,27 +2,27 @@ package NazirisLarkou.hw5;
 import edu.princeton.cs.introcs.StdDraw;
 
 /**
- * A class representing an Immune to disease
+ * A class representing a youngster
  *
  * @author Konstantinos Larkou
  */
-public class ImmunePerson extends Person {
+public class YoungPerson extends Person {
   /**
    * Class constructor specifying x and y
    * @param x the int X position
    * @param y the int Y position
    */
-  public ImmunePerson(int x, int y) {
+  public YoungPerson(int x, int y) {
     super(x, y);
-    this.vulnerability = 0;
-    this.mobility = .7;
+    this.vulnerability = .33;
+    this.mobility = .8;
   }
 
   /**
    * Draws the person
    */
   public void draw() {
-	  StdDraw.setPenColor(StdDraw.WHITE);
+	  StdDraw.setPenColor(StdDraw.YELLOW);
 	  StdDraw.circle(this.x, this.y, 0.5);
   }
 }

@@ -1,5 +1,11 @@
 package NazirisLarkou.hw5;
 
+/**
+ * General abstract that represents a person
+ * 
+ * @author Konstantinos Larkou
+ *
+ */
 public abstract class Person {
 	int x, y;
 	boolean infected = false;
