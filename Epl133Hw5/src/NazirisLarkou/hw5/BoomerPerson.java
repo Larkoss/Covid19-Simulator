@@ -14,8 +14,8 @@ public class BoomerPerson extends Person {
    */
   public BoomerPerson(int x, int y) {
     super(x, y);
-    this.vulnerability = 1.0;
-    this.mobility = .5;
+    BoomerPerson.vulnerability = 1.0;
+    BoomerPerson.mobility = .5;
   }
 
   /**
