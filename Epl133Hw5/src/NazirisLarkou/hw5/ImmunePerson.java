@@ -2,7 +2,7 @@ package NazirisLarkou.hw5;
 import edu.princeton.cs.introcs.StdDraw;
 
 /**
- * A class representing an Immune to disease
+ * A class representing an Immune to the disease
  *
  * @author Konstantinos Larkou
  */
@@ -14,8 +14,8 @@ public class ImmunePerson extends Person {
    */
   public ImmunePerson(int x, int y) {
     super(x, y);
-    this.vulnerability = 0;
-    this.mobility = .7;
+    ImmunePerson.vulnerability = 0;
+    ImmunePerson.mobility = .7;
   }
 
   /**

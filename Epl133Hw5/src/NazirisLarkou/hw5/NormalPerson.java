@@ -14,8 +14,8 @@ public class NormalPerson extends Person {
    */
   public NormalPerson(int x, int y) {
     super(x, y);
-    this.vulnerability = .66;
-    this.mobility = .7;
+    NormalPerson.vulnerability = .66;
+    NormalPerson.mobility = .7;
   }
 
   /**
