@@ -7,7 +7,7 @@ package NazirisLarkou.hw5;
  *
  */
 public abstract class Person {
-	int x, y;
+	double x, y;
 	boolean infected = false;
 	static double mobility;
 	static double vulnerability;
@@ -17,25 +17,25 @@ public abstract class Person {
 	
   /**
    * Class constructor specifying x and y
-   * @param x the int X position
-   * @param y the int Y position
+   * @param x2 the int X position
+   * @param y2 the int Y position
    */
-  public Person(int x, int y) {
-    this.x = x;
-    this.y = y;
+  public Person(double x2, double y2) {
+    this.x = x2;
+    this.y = y2;
   }
   
 	/**
 	 * @return the x
 	 */
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
 	/**
 	 * @return the y
 	 */
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 

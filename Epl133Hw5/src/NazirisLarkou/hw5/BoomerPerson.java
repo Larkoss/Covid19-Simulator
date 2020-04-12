@@ -12,7 +12,7 @@ public class BoomerPerson extends Person {
    * @param x the int X position
    * @param y the int Y position
    */
-  public BoomerPerson(int x, int y) {
+  public BoomerPerson(double x, double y) {
     super(x, y);
     BoomerPerson.vulnerability = 1.0;
     BoomerPerson.mobility = .5;
@@ -22,15 +22,24 @@ public class BoomerPerson extends Person {
    * Draws the person
    */
   public void draw() {
-	  StdDraw.setCanvasSize(1, 1);
-	  StdDraw.setPenColor(StdDraw.GREEN);
-	  StdDraw.circle(this.x, this.y, 0.1);
+	  int n = 5;
+	  int newn = 5 *100;
+	  StdDraw.setCanvasSize(newn, newn);
+	  StdDraw.setPenColor(StdDraw.RED);
+	  StdDraw.filledCircle(this.x, this.y, newn / 1000.0);
 	  double x1, y1;
 	  for(double i = 0; i< 2 * Math.PI; i+= (Math.PI / 4)) {
-		  x1 = 0.2 * Math.sin(i);
-		  y1 = 0.2 * Math.cos(i);
+		  x1 = x + 0.2 * Math.sin(i);
+		  y1 = y + 0.2 * Math.cos(i);
 		  StdDraw.line(x, y, x1, y1);
+		  StdDraw.filledCircle(x1, y1, 0.01);
 	  }
+  }
+  
+  public static void main(String args[]) {
+	  System.out.println("Hello World1");
+	  BoomerPerson b = new BoomerPerson(0.5, 0.5);
+	  b.draw();
   }
   
 }
