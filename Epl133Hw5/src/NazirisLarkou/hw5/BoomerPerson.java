@@ -22,7 +22,15 @@ public class BoomerPerson extends Person {
    * Draws the person
    */
   public void draw() {
-	  StdDraw.setPenColor(StdDraw.BLACK);
-	  StdDraw.circle(this.x, this.y, 0.5);
+	  StdDraw.setCanvasSize(1, 1);
+	  StdDraw.setPenColor(StdDraw.GREEN);
+	  StdDraw.circle(this.x, this.y, 0.1);
+	  double x1, y1;
+	  for(double i = 0; i< 2 * Math.PI; i+= (Math.PI / 4)) {
+		  x1 = 0.2 * Math.sin(i);
+		  y1 = 0.2 * Math.cos(i);
+		  StdDraw.line(x, y, x1, y1);
+	  }
   }
+  
 }
