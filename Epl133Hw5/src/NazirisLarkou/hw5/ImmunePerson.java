@@ -22,6 +22,6 @@ public class ImmunePerson extends Person {
    * Draws the person
    */
   public void draw(double doubleH, double doubleW) {
-	  ;
+	  StdDraw.picture((x*doubleW)+(doubleW/2), (y*doubleH)+(doubleH / 2), "Immune.png", doubleW, doubleH);
   }
 }
