@@ -21,8 +21,7 @@ public class NormalPerson extends Person {
   /**
    * Draws the person
    */
-  public void draw() {
-	  StdDraw.setPenColor(StdDraw.BLUE);
-	  StdDraw.circle(this.x, this.y, 0.5);
+  public void draw(double doubleH, double doubleW) {
+	  ;
   }
 }

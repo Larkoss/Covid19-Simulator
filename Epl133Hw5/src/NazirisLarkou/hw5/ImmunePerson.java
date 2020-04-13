@@ -21,8 +21,7 @@ public class ImmunePerson extends Person {
   /**
    * Draws the person
    */
-  public void draw() {
-	  StdDraw.setPenColor(StdDraw.WHITE);
-	  StdDraw.circle(this.x, this.y, 0.5);
+  public void draw(double doubleH, double doubleW) {
+	  ;
   }
 }

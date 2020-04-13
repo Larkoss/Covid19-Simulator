@@ -3,8 +3,10 @@ package NazirisLarkou.hw5;
 import edu.princeton.cs.introcs.StdDraw;
 
 public class Grid {
-	private static double doubleH; // Percentage the height of the box is according to canvas
-	private static double doubleW; // Percentage the width of the box is according to canvas
+	private static double doubleH; 	// Percentage the height of the box is according to canvas
+									// The length of height, of a single square
+	private static double doubleW;	// Percentage the width of the box is according to canvas
+									// The length of width, of a single square
 
 	/**
 	 * Constructor that initializes the static doubles

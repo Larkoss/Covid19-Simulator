@@ -49,7 +49,7 @@ public abstract class Person {
 	/**
 	 * Abstract method that draws the person on the grid
 	 */
-	abstract void draw();
+	public abstract void draw(double doubleH, double doubleW);
 
 	/**
 	 * Method that depending on probability decides if a person should move

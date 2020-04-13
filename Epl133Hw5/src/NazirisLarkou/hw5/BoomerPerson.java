@@ -21,25 +21,10 @@ public class BoomerPerson extends Person {
   /**
    * Draws the person
    */
-  public void draw() {
-	  int n = 5;
-	  int newn = 5 *100;
-	  StdDraw.setCanvasSize(newn, newn);
-	  StdDraw.setPenColor(StdDraw.RED);
-	  StdDraw.filledCircle(this.x, this.y, newn / 1000.0);
-	  double x1, y1;
-	  for(double i = 0; i< 2 * Math.PI; i+= (Math.PI / 4)) {
-		  x1 = x + 0.2 * Math.sin(i);
-		  y1 = y + 0.2 * Math.cos(i);
-		  StdDraw.line(x, y, x1, y1);
-		  StdDraw.filledCircle(x1, y1, 0.01);
-	  }
+  public void draw(double doubleH, double doubleW) {
+
+	  StdDraw.picture((x*doubleW)+(doubleW/2), (y*doubleH)+(doubleH / 2), "Boomer.png", doubleW, doubleH);
   }
-  
-  public static void main(String args[]) {
-	  System.out.println("Hello World1");
-	  BoomerPerson b = new BoomerPerson(0.5, 0.5);
-	  b.draw();
-  }
+ 
   
 }
