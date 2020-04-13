@@ -9,22 +9,23 @@ package NazirisLarkou.hw5;
 public abstract class Person {
 	double x, y;
 	boolean infected = false;
-	static double mobility;
-	static double vulnerability;
+	double mobility;
+	double vulnerability;
 
 	private final static double groundPossibility = 0.4;
 	private final static double personPossibility = 0.75;
-	
-  /**
-   * Class constructor specifying x and y
-   * @param x2 the int X position
-   * @param y2 the int Y position
-   */
-  public Person(double x2, double y2) {
-    this.x = x2;
-    this.y = y2;
-  }
-  
+
+	/**
+	 * Class constructor specifying x and y
+	 * 
+	 * @param x2 the double X position
+	 * @param y2 the double Y position
+	 */
+	public Person(double x2, double y2) {
+		this.x = x2;
+		this.y = y2;
+	}
+
 	/**
 	 * @return the x
 	 */
@@ -76,14 +77,14 @@ public abstract class Person {
 		double random;
 
 		if (isGroundInfected) {
-			newPossibility = groundPossibility * vulnerability;
+			newPossibility = Person.groundPossibility * this.vulnerability;
 			random = Math.random();
 			if (random > newPossibility)
 				return true;
 		}
 
 		for (int i = 0; i < numNeighboursInfected; i++) {
-			newPossibility = personPossibility;
+			newPossibility = Person.personPossibility * this.vulnerability;
 			random = Math.random();
 			if (random > newPossibility)
 				return true;

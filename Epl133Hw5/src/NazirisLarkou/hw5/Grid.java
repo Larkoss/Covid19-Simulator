@@ -2,17 +2,24 @@ package NazirisLarkou.hw5;
 
 import edu.princeton.cs.introcs.StdDraw;
 
+/**
+ * A class representing the grid
+ * 
+ * @author Konstantinos Larkou
+ *
+ */
 public class Grid {
-	private double doubleH; 		// Percentage the height of the box is according to canvas
-									// The length of height, of a single square
-	private double doubleW;			// Percentage the width of the box is according to canvas
-									// The length of width, of a single square
 	
-	{								//Instance Initialization Block			
+	
+	private double doubleH; // Percentage the height of the box is according to canvas
+							// The length of height, of a single square
+	private double doubleW; // Percentage the width of the box is according to canvas
+							// The length of width, of a single square
+
+	{ // Instance Initialization Block
 		StdDraw.setCanvasSize(700, 700);
 	}
-	
-	
+
 	/**
 	 * Constructor that initializes the static doubles
 	 * 
@@ -40,6 +47,7 @@ public class Grid {
 	public double getDoubleW() {
 		return doubleW;
 	}
+
 	public void drawGrid() {
 		for (double i = 0; i < 1; i += doubleW)
 			for (double j = 0; j < 1; j += doubleH)
