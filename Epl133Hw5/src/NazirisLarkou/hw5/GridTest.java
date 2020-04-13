@@ -31,7 +31,7 @@ class GridTest {
 	final void testIsCellInfected() {
     Grid g = new Grid(10, 5);
 
-    assertEquals(false, g.isCellInfected(1, 2));
+    assertEquals(false, g.isCellInfected(1, 2, 0));
 	}
 
 }

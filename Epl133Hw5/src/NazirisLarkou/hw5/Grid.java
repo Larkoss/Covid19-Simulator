@@ -69,11 +69,12 @@ public class Grid {
   /**
    * Getter for if cell is infected
    * @param x the x coordinate of the cell
-   * @param x the y coordinate of the cell
+   * @param y the y coordinate of the cell
+   * @param time int, the current time
    * @return is cell infected
    */
-  public boolean isCellInfected(int x, int y) {
-    return this.cells[y][x].getIsInfected();
+  public boolean isCellInfected(int x, int y, int time) {
+    return this.cells[y][x].getIsInfected(time);
   }
 
 	public void drawGrid() {
