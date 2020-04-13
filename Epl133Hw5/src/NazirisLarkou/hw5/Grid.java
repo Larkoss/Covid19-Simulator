@@ -77,6 +77,16 @@ public class Grid {
     return this.cells[y][x].getIsInfected(time);
   }
 
+  /**
+   * Infect cell.
+   * @param x the x coordinate of the cell
+   * @param y the y coordinate of the cell
+   * @param time int, the current time
+   */
+  public void infectCell(int x, int y, int time) {
+    this.cells[y][x].infect(time);
+  }
+
 	public void drawGrid() {
 		for (double i = 0; i < 1; i += doubleW)
 			for (double j = 0; j < 1; j += doubleH)

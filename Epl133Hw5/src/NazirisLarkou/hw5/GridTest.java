@@ -28,10 +28,14 @@ class GridTest {
 	}
 
 	@Test
-	final void testIsCellInfected() {
+	final void testInfectAndIsCellInfected() {
     Grid g = new Grid(10, 5);
 
     assertEquals(false, g.isCellInfected(1, 2, 0));
+    g.infectCell(1, 2, 3);
+    assertEquals(true, g.isCellInfected(1, 2, 3));
+    g.infectCell(1, 2, 4);
+    assertEquals(true, g.isCellInfected(1, 2, 4));
 	}
 
 }
