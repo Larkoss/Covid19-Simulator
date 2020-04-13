@@ -27,7 +27,7 @@ public class Grid {
 	 * @param h Y-axis
 	 * @param w X-axis
 	 */
-	public Grid(int h, int w) { // Constructor
+	public Grid(int h, int w) {
     this.cells = new Cell[h][w];
 
     // Populate table
@@ -37,11 +37,8 @@ public class Grid {
       }
     }
 
-		double hDivider = 100.0 / h;
-		this.doubleH = hDivider / 100.0;
-
-		double wDivider = 100.0 / w;
-		this.doubleW = wDivider / 100.0;
+		this.doubleH = 1.0 / h;
+		this.doubleW = 1.0 / w;
 	}
 
 	/**
@@ -87,14 +84,16 @@ public class Grid {
     this.cells[y][x].infect(time);
   }
 
+  /**
+   * Draw the grid.
+   */
 	public void drawGrid() {
-		for (double i = 0; i < 1; i += doubleW)
-			for (double j = 0; j < 1; j += doubleH)
-				StdDraw.line(i, j, i + doubleW, j);
+    // Draws horizontal lines
+    for (double j = 0; j < 1; j += doubleH)
+      StdDraw.line(0, j, 1, j);
 
-		for (double j = 0; j < 1; j += doubleH)
-			for (double i = 0; i < 1; i += doubleW)
-				StdDraw.line(i, j, i, j + doubleH);
+    // Draws vertical lines
+    for (double i = 0; i < 1; i += doubleW)
+      StdDraw.line(i, 0, i, 1);
 	}
-
 }
