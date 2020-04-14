@@ -13,15 +13,17 @@ public class ImmunePerson extends Person {
    * @param y the double Y position
    */
   public ImmunePerson(int x, int y) {
-    super(x, y);
-    this.vulnerability = 0;
-    this.mobility = .7;
+    super(x, y, 0.8, 0);
   }
 
   /**
    * Draws the person
    */
   public void draw(double doubleH, double doubleW) {
-		StdDraw.picture((x * doubleW) + (doubleW / 2), (y * doubleH) + (doubleH / 2), "Immune.png", doubleW, doubleH);
-  }
+	  	if(infected)
+	  		StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "ImmuneInfected.png", doubleW, doubleH);
+  		else
+  			StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "Immune.png", doubleW, doubleH);
+	}
+
 }

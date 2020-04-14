@@ -15,15 +15,16 @@ public class CarefulPerson extends Person {
 	 * @param y the double Y position
 	 */
 	public CarefulPerson(int x, int y) {
-		super(x, y);
-		this.vulnerability = .33;
-		this.mobility = .8;
+		super(x, y, 0.7, 0.33);
 	}
 
 	/**
 	 * Draws the person
 	 */
 	public void draw(double doubleH, double doubleW) {
-		StdDraw.picture((x * doubleW) + (doubleW / 2), (y * doubleH) + (doubleH / 2), "Careful.png", doubleW, doubleH);
+		if(infected)
+			StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "CarefulInfected.png", doubleW, doubleH);
+		else
+			StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "Careful.png", doubleW, doubleH);
 	}
 }

@@ -15,17 +15,17 @@ public class BoomerPerson extends Person {
 	 * @param y the double Y position
 	 */
 	public BoomerPerson(double x, double y) {
-		super(x, y);
-		this.vulnerability = 1.0;
-		this.mobility = .5;
+		super(x, y, 0.5, 1);
 	}
 
 	/**
 	 * Draws the person
 	 */
 	public void draw(double doubleH, double doubleW) {
-
-		StdDraw.picture((x * doubleW) + (doubleW / 2), (y * doubleH) + (doubleH / 2), "Boomer.png", doubleW, doubleH);
+		if(infected)
+			StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "BoomerInfected.png", doubleW, doubleH);
+		else
+			StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "Boomer.png", doubleW, doubleH);
 	}
 
 }

@@ -7,10 +7,11 @@ package NazirisLarkou.hw5;
  *
  */
 public abstract class Person {
-	double x, y;
+	private double x, y;
+	//private boolean infected = false;
 	boolean infected = false;
-	double mobility;
-	double vulnerability;
+	private double mobility;
+	private double vulnerability;
 
 	private final static double groundPossibility = 0.4;
 	private final static double personPossibility = 0.75;
@@ -21,9 +22,16 @@ public abstract class Person {
 	 * @param x2 the double X position
 	 * @param y2 the double Y position
 	 */
-	public Person(double x2, double y2) {
-		this.x = x2;
-		this.y = y2;
+	public Person(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public Person(double x, double y, double mobility, double vulnerability) {
+		this.x = x;
+		this.y = y;
+		this.mobility = mobility;
+		this.vulnerability = vulnerability;
 	}
 
 	/**
