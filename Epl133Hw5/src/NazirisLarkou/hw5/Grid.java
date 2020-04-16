@@ -98,6 +98,18 @@ public class Grid {
     this.cells[y][x].infect(time);
   }
 
+	/**
+	 * Update all cells.
+	 * @param time the current time
+	 */
+	public void updateCells(int time) {
+		for(int i = 0; i < this.cells.length; i ++) {
+			for(int j = 0; j < this.cells[0].length; j ++) {
+				this.cells[i][j].updateInfected(false, time);
+			}
+		}
+	}
+
   /**
    * Draw the grid.
    */

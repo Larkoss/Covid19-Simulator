@@ -65,7 +65,7 @@ public class Simulation {
 	 * A function that handles movement of people.
 	 * @param people an array of Person objects
 	 */
-	public static void movePeople(Person people[], Grid grid) {
+	public static void movePeople(Person people[], Grid grid, int time) {
 		for(int i = 0; i < people.length; i ++) {
 			boolean shouldMove = people[i].shouldMove();
 
@@ -95,7 +95,10 @@ public class Simulation {
 					break;
 			}
 
-			if(!shouldMove || neighbours.length == maxNeighbours) continue;
+			if(!shouldMove || neighbours.length == maxNeighbours) {
+				grid.infectCell((int)people[i].getX(), (int)people[i].getY(), time);
+				continue;
+			}
 
 			double newX;
 			double newY;
@@ -138,7 +141,8 @@ public class Simulation {
 	public static void mainLoop(Grid grid, Person people[], int simulationDuration) {
 		for(int time = 0; time < simulationDuration; time ++) {
 			System.out.println(time);
-			movePeople(people, grid);
+			movePeople(people, grid, time);
+			grid.updateCells(time);
 			draw(grid, people);
 		}
 	}
@@ -235,7 +239,11 @@ public class Simulation {
 	}
 
 	public static void main(String args[]) {
+		Cell.setInfectionPropability(.1);
+		Cell.setDisinfectionPeriod(9);
+
 		Grid grid = initializeGrid();
+
 		Person[] people = initializePeople(grid.getHeight(), grid.getWidth());
 
 		// Draw once after initialization
