@@ -92,7 +92,7 @@ public class Simulation {
 		}
 	}
 
-	public static void main(String args[]) {
+	private static Grid initializeGrid() {
 		Scanner scan = new Scanner(System.in);
 		double doubleH, doubleW;
 		int h = 0, w = 0;
@@ -122,9 +122,16 @@ public class Simulation {
 				scan.nextLine();
 				System.out.println("Height and width must be numbers. Enter again:");
 			}
-		}	
-		
-		int size = 0, area = h * w;
+		}
+
+		return new Grid(h, w);
+	}
+
+	private static Person[] initializePeople(double height, double width) {
+		int size = 0, area = (int)(height * width);
+		boolean input;
+		Scanner scan = new Scanner(System.in);
+
 		System.out.println("Enter number of people, between 1 and " + area + ": ");
 		input = false;
 		while(!input) {
@@ -146,11 +153,7 @@ public class Simulation {
 			}
 		}
 		
-		Grid grid = new Grid(h, w);
-		doubleH = grid.getDoubleH();
-		doubleW = grid.getDoubleW();
-		
-		Person p[] = new Person[size];
+		Person[] p = new Person[size];
 		double random;
 		int x = -1, y = -1;
 		boolean isCellEmpty;
@@ -160,8 +163,8 @@ public class Simulation {
 			random = Math.random();
 			while(!isCellEmpty) {
 				isCellEmpty = true;
-				x = (int) Math.floor(Math.random() * (w));
-				y = (int) Math.floor(Math.random() * (h));
+				x = (int) Math.floor(Math.random() * (width));
+				y = (int) Math.floor(Math.random() * (height));
 				for(int j = 0; j < i; j++)
 					if(p[j].getX() == x && p[j].getY() == y)
 						isCellEmpty = false;
@@ -177,12 +180,17 @@ public class Simulation {
 				p[i] = new ImmunePerson(x, y);
 		}
 
+		return p;
+	}
+
+	public static void main(String args[]) {
+		Grid grid = initializeGrid();
+		Person[] people = initializePeople(grid.getHeight(), grid.getWidth());
+
 		// Draw once after initialization
-		draw(grid, p);
+		draw(grid, people);
 		
-		scan.close();
-		
-		mainLoop(grid, p, 120);
+		mainLoop(grid, people, 120);
 	}
 
 }

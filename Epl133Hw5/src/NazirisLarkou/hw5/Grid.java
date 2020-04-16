@@ -63,13 +63,19 @@ public class Grid {
 		return doubleW;
 	}
 
-  /**
-   * Getter for grid area
-   * @return grid area
-   */
-  public int getArea() {
-    return this.cells.length * this.cells[0].length;
-  }
+	/**
+	 * @return the height
+	 */
+	public double getHeight() {
+		return this.cells.length;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public double getWidth() {
+		return this.cells[0].length;
+	}
 
   /**
    * Getter for if cell is infected
