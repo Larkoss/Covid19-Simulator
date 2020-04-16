@@ -13,12 +13,14 @@ import java.util.Scanner;
  *
  */
 public class Simulation {
-	private static Person[] getNeighbours(double x, double y, Person people[]) {
+	public static Person[] getNeighbours(double x, double y, Person people[]) {
 		Person[] neighbours = new Person[people.length];
 		int counter = 0;
 
 		for(int i = 0; i < people.length; i++) {
-			if(Math.abs(people[i].getX() - x) == 1 || Math.abs(people[i].getY() - y) == 1) {
+			double absDiffX = people[i].getX() - x;
+			double absDiffY = people[i].getY() - y;
+			if(absDiffX >= -1 && absDiffX <= 1 && absDiffY >= -1 && absDiffY <= 1) {
 				neighbours[counter ++] = people[i];
 			}
 		}
@@ -31,7 +33,7 @@ public class Simulation {
 		return results;
 	}
 
-	private static boolean isCellEmpty(double x, double y, Person people[]) {
+	public static boolean isCellEmpty(double x, double y, Person people[]) {
 		for(int i = 0; i < people.length; i++)
 			if(people[i].getX() == x && people[i].getY() == y)
 				return false;
@@ -60,7 +62,7 @@ public class Simulation {
 
 				newX = people[i].getX() + xOffset;
 				newY = people[i].getY() + yOffset;
-			} while (isCellEmpty(newX, newY, people));
+			} while (!isCellEmpty(newX, newY, people));
 
 			people[i].move(newX, newY);
 		}
