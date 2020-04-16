@@ -13,14 +13,34 @@ import java.util.Scanner;
  *
  */
 public class Simulation {
-	public static Person[] getNeighbours(double x, double y, Person people[]) {
+	private static int numOfWallsTouching(double x, double y, Grid grid) {
+		int walls = 0;
+
+		if(x == 0 || x == grid.getWidth() - 1) walls ++;
+		if(y == 0 || y == grid.getHeight() - 1) walls ++;
+
+		if(grid.getWidth() == 1) walls ++;
+		if(grid.getHeight() == 1) walls ++;
+
+		return walls;
+	}
+
+	private static boolean isOutsideGrid(double x, double y, Grid grid) {
+		if(x < 0 || x > grid.getWidth() - 1) return true;
+		if(y < 0 || y > grid.getHeight() - 1) return true;
+
+		return false;
+	}
+	
+
+	private static Person[] getNeighbours(double x, double y, Person people[]) {
 		Person[] neighbours = new Person[people.length];
 		int counter = 0;
 
 		for(int i = 0; i < people.length; i++) {
-			double absDiffX = people[i].getX() - x;
-			double absDiffY = people[i].getY() - y;
-			if(absDiffX >= -1 && absDiffX <= 1 && absDiffY >= -1 && absDiffY <= 1) {
+			double absDiffX = Math.abs(people[i].getX() - x);
+			double absDiffY = Math.abs(people[i].getY() - y);
+			if(absDiffX >= -1 && absDiffX <= 1 && absDiffY >= -1 && absDiffY <= 1 && absDiffX + absDiffY != 0) {
 				neighbours[counter ++] = people[i];
 			}
 		}
@@ -33,7 +53,7 @@ public class Simulation {
 		return results;
 	}
 
-	public static boolean isCellEmpty(double x, double y, Person people[]) {
+	private static boolean isCellEmpty(double x, double y, Person people[]) {
 		for(int i = 0; i < people.length; i++)
 			if(people[i].getX() == x && people[i].getY() == y)
 				return false;
@@ -45,24 +65,52 @@ public class Simulation {
 	 * A function that handles movement of people.
 	 * @param people an array of Person objects
 	 */
-	public static void movePeople(Person people[]) {
+	public static void movePeople(Person people[], Grid grid) {
 		for(int i = 0; i < people.length; i ++) {
 			boolean shouldMove = people[i].shouldMove();
 
 			// Go to next person if this person shouldn't move or if surrounded.
-			Person[] neighbours = getNeighbours(people[i].getX(), people[i].getY(), people);
-			if(!shouldMove || neighbours.length == 8) continue;
+			double x = people[i].getX();
+			double y = people[i].getY();
+
+			Person[] neighbours = getNeighbours(x, y, people);
+			int maxNeighbours = 8;
+			
+			switch(numOfWallsTouching(x, y, grid)) {
+				case 0:
+					maxNeighbours = 8;
+					break;
+				case 1:
+					maxNeighbours = 5;
+					break;
+				case 2:
+					if(grid.getWidth() == 1 || grid.getHeight() == 1) maxNeighbours = 2;
+					else maxNeighbours = 3;
+					break;
+				case 3:
+					maxNeighbours = 1;
+					break;
+				case 4:
+					maxNeighbours = 0;
+					break;
+			}
+
+			if(!shouldMove || neighbours.length == maxNeighbours) continue;
 
 			double newX;
 			double newY;
+			double xOffset;
+			double yOffset;
+			double absOffsetSum;
 			do {
-				// Offset of -1 or 1
-				double xOffset = Math.floor(Math.random() * 2) * 2 - 1;
-				double yOffset = Math.floor(Math.random() * 2) * 2 - 1;
+				// Offset of -1 , 0 or 1
+				xOffset = Math.floor(Math.random() * 3) - 1;
+				yOffset = Math.floor(Math.random() * 3) - 1;
+				absOffsetSum = Math.abs(xOffset) + Math.abs(yOffset);
 
 				newX = people[i].getX() + xOffset;
 				newY = people[i].getY() + yOffset;
-			} while (!isCellEmpty(newX, newY, people));
+			} while (!isCellEmpty(newX, newY, people) || isOutsideGrid(newX, newY, grid) || absOffsetSum == 0);
 
 			people[i].move(newX, newY);
 		}
@@ -77,7 +125,7 @@ public class Simulation {
 			people[i].draw(grid.getDoubleH(), grid.getDoubleW());
 		}
 
-		StdDraw.show();
+		StdDraw.pause(0);
 	}
 
 	/**
@@ -89,8 +137,8 @@ public class Simulation {
 	public static void mainLoop(Grid grid, Person people[], int simulationDuration) {
 		for(int time = 0; time < simulationDuration; time ++) {
 			System.out.println(time);
-			movePeople(people);
-			draw(grid, people);
+			movePeople(people, grid);
+			// draw(grid, people);
 		}
 	}
 
@@ -192,7 +240,7 @@ public class Simulation {
 		// Draw once after initialization
 		draw(grid, people);
 		
-		mainLoop(grid, people, 120);
+		mainLoop(grid, people, 1200000);
 	}
 
 }
