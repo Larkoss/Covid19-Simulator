@@ -1,4 +1,5 @@
 package NazirisLarkou.hw5;
+import edu.princeton.cs.introcs.StdDraw;
 
 /**
  * A class representing a cell of the grid
@@ -104,4 +105,16 @@ public class Cell {
 			this.isInfected = false;
 		}
 	}
+
+	public void draw(double x, double y, double doubleW, double doubleH) {
+		if(this.isInfected) {
+			StdDraw.setPenColor(StdDraw.ORANGE);
+			StdDraw.filledRectangle((x * doubleW) + (doubleW / 2), (y * doubleH) + (doubleH / 2), doubleW / 2, doubleH / 2);
+			StdDraw.setPenColor();
+		}else {
+			StdDraw.setPenColor(StdDraw.WHITE);
+			StdDraw.filledRectangle((x * doubleW) + (doubleW / 2), (y * doubleH) + (doubleH / 2), doubleW / 2, doubleH / 2);
+			StdDraw.setPenColor();
+		}
+  }
 }

@@ -1,13 +1,15 @@
 package NazirisLarkou.hw5;
 
-import edu.princeton.cs.introcs.StdDraw;
-
 /**
  * A class representing a Normal person
  *
  * @author Konstantinos Larkou
  */
 public class NormalPerson extends Person {
+	static {
+		type = "Normal";
+	}
+
 	/**
 	 * Class constructor specifying x and y
 	 * 
@@ -16,15 +18,5 @@ public class NormalPerson extends Person {
 	 */
 	public NormalPerson(int x, int y) {
 		super(x, y, 0.7, 0.66);
-	}
-
-	/**
-	 * Draws the person
-	 */
-	public void draw(double doubleH, double doubleW) {
-	  	if(this.getIsInfected())
-	  		StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "NormalInfected.png", doubleW, doubleH);
-  		else
-  			StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "Normal.png", doubleW, doubleH);
 	}
 }

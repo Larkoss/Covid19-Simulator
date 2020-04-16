@@ -1,5 +1,4 @@
 package NazirisLarkou.hw5;
-import edu.princeton.cs.introcs.StdDraw;
 
 /**
  * A class representing an immune to the disease person
@@ -7,6 +6,10 @@ import edu.princeton.cs.introcs.StdDraw;
  * @author Konstantinos Larkou
  */
 public class ImmunePerson extends Person {
+	static {
+		type = "Careful";
+  }
+
   /**
    * Class constructor specifying x and y
    * @param x the double X position
@@ -15,12 +18,4 @@ public class ImmunePerson extends Person {
   public ImmunePerson(int x, int y) {
     super(x, y, 0.8, 0);
   }
-
-  /**
-   * Draws the person
-   */
-  public void draw(double doubleH, double doubleW) {
-  		StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "Immune.png", doubleW, doubleH);
-	}
-
 }

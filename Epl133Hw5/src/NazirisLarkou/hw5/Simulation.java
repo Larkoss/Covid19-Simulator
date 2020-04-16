@@ -133,13 +133,14 @@ public class Simulation {
 		}
 	}
 
-	private static void draw(Grid grid, Person people[]) {
+	private static void draw(Grid grid, Person people[], int time) {
 		StdDraw.clear();
 		StdDraw.enableDoubleBuffering();
 		grid.drawGrid();
 
 		for(int i = 0; i < people.length; i ++) {
-			people[i].draw(grid.getDoubleH(), grid.getDoubleW());
+			boolean isCurCellInfected = grid.isCellInfected((int)people[i].getX(), (int)people[i].getY(), time);
+			people[i].draw(grid.getDoubleH(), grid.getDoubleW(), isCurCellInfected);
 		}
 
 		StdDraw.show();
@@ -156,7 +157,7 @@ public class Simulation {
 		for(int time = 0; time < simulationDuration; time ++) {
 			movePeople(people, grid, time);
 			grid.updateCells(time);
-			draw(grid, people);
+			draw(grid, people, time);
 		}
 	}
 
@@ -261,7 +262,7 @@ public class Simulation {
 		people[0].setInfected(true);
 
 		// Draw once after initialization
-		draw(grid, people);
+		draw(grid, people, 0);
 		
 		mainLoop(grid, people, 1200000);
 	}

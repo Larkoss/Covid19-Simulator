@@ -1,4 +1,5 @@
 package NazirisLarkou.hw5;
+import edu.princeton.cs.introcs.StdDraw;
 
 /**
  * General abstract that represents a person
@@ -14,6 +15,8 @@ public abstract class Person {
 
 	private final static double groundPossibility = 0.4;
 	private final static double personPossibility = 0.75;
+
+	protected static String type;
 
 	/**
 	 * Class constructor specifying x and y
@@ -62,10 +65,31 @@ public abstract class Person {
 		System.out.println(this.infected);
 	}
 
+	private void drawImg(double doubleH, double doubleW, String name) {
+		StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), name + ".png", doubleW, doubleH);
+	}
+
 	/**
 	 * Abstract method that draws the person on the grid
 	 */
-	public abstract void draw(double doubleH, double doubleW);
+	public void draw(double doubleH, double doubleW, boolean isCellInfected) {
+		String name = type;
+
+		if(this.infected) {
+			name += "Infected";
+			if(isCellInfected) {
+				this.drawImg(doubleH, doubleW, name + "Both");
+			} else {
+				this.drawImg(doubleH, doubleW, name + "Floor");
+			}
+		} else {
+			if(isCellInfected) {
+				this.drawImg(doubleH, doubleW, name + "Both");
+			} else {
+				this.drawImg(doubleH, doubleW, name + "Floor");
+			}
+		}
+	}
 
 	/**
 	 * Method that depending on probability decides if a person should move
