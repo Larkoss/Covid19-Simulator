@@ -147,7 +147,6 @@ public class Simulation {
 		}
 		
 		Grid grid = new Grid(h, w);
-		grid.drawGrid();
 		doubleH = grid.getDoubleH();
 		doubleW = grid.getDoubleW();
 		
@@ -176,10 +175,10 @@ public class Simulation {
 				p[i] = new CarefulPerson(x, y);
 			else
 				p[i] = new ImmunePerson(x, y);
-	
-			p[i].draw(doubleH, doubleW);
-			StdDraw.show();
 		}
+
+		// Draw once after initialization
+		draw(grid, p);
 		
 		scan.close();
 		
