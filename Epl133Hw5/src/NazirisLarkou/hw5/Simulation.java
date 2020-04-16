@@ -65,6 +65,19 @@ public class Simulation {
 			people[i].move(newX, newY);
 		}
 	}
+
+	private static void draw(Grid grid, Person people[]) {
+		StdDraw.clear();
+
+		grid.drawGrid();
+
+		for(int i = 0; i < people.length; i ++) {
+			people[i].draw(grid.getDoubleH(), grid.getDoubleW());
+		}
+
+		StdDraw.show();
+	}
+
 	/**
 	 * The main loop of the simulation.
 	 * @param grid the Grid of cells
@@ -73,7 +86,9 @@ public class Simulation {
 	 */
 	public static void mainLoop(Grid grid, Person people[], int simulationDuration) {
 		for(int time = 0; time < simulationDuration; time ++) {
+			System.out.println(time);
 			movePeople(people);
+			draw(grid, people);
 		}
 	}
 
