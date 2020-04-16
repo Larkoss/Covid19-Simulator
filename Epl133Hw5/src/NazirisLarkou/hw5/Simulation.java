@@ -21,7 +21,7 @@ public class Simulation {
 		int h = 0, w = 0;
 		boolean input;
 		
-		System.out.println("Enter height of grid, between 1 and 15: ");
+		System.out.println("Enter height, width of grid, between 1 and 15: ");
 		input = false;
 		while(!input) {
 			try {
@@ -30,30 +30,10 @@ public class Simulation {
 					throw new ArithmeticException("Height must be below 15. Enter again: ");
 				if(h < 1)
 					throw new ArithmeticException("Height must be above 0. Enter again: ");
-				input = true;
-			}
-			catch(ArithmeticException e) {
-				scan.nextLine();
-				System.out.println(e.getMessage());
-			}
-			catch(InputMismatchException e) {
-				scan.nextLine();
-				System.out.println("Height must be a number. Enter again:");
-			}
-			catch(Exception e) {
-				scan.nextLine();
-				System.out.println("Error. Enter again: ");
-			}
-		}
-		
-		System.out.println("Enter width of grid, between 1 and 15: ");
-		input = false;
-		while(!input) {
-			try {
 				w = scan.nextInt();
 				if(w > 15)
 					throw new ArithmeticException("Width must be below 15. Enter again: ");
-				if(h < 1)
+				if(w < 1)
 					throw new ArithmeticException("Width must be above 0. Enter again: ");
 				input = true;
 			}
@@ -63,13 +43,9 @@ public class Simulation {
 			}
 			catch(InputMismatchException e) {
 				scan.nextLine();
-				System.out.println("Width must be a number. Enter again:");
+				System.out.println("Height and width must be numbers. Enter again:");
 			}
-			catch(Exception e) {
-				scan.nextLine();
-				System.out.println("Error. Enter again: ");
-			}
-		}		
+		}	
 		
 		int size = 0, area = h * w;
 		System.out.println("Enter number of people, between 1 and " + area + ": ");
@@ -91,10 +67,6 @@ public class Simulation {
 				scan.nextLine();
 				System.out.println("Wrong Input. Enter again:");
 			}
-			catch(Exception e) {
-				scan.nextLine();
-				System.out.println("Error. Enter again: ");
-			}
 		}
 		
 		Grid grid = new Grid(h, w);
@@ -105,17 +77,18 @@ public class Simulation {
 		Person p[] = new Person[size];
 		double random;
 		int x = -1, y = -1;
+		boolean isCellOccupied;
 
 		for (int i = 0; i < size; i++) {
-			input = false;
+			isCellOccupied = false;
 			random = Math.random();
-			while(!input) {
-				input = true;
-				x = (int) Math.floor(Math.random() * (h));
-				y = (int) Math.floor(Math.random() * (w));
+			while(!isCellOccupied) {
+				isCellOccupied = true;
+				x = (int) Math.floor(Math.random() * (w));
+				y = (int) Math.floor(Math.random() * (h));
 				for(int j = 0; j < i; j++)
 					if(p[j].getX() == x && p[j].getY() == y)
-						input = false;
+						isCellOccupied = false;
 			}
 			
 			if(random <= 0.3)
