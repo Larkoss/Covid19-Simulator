@@ -8,8 +8,7 @@ package NazirisLarkou.hw5;
  */
 public abstract class Person {
 	private double x, y;
-	//private boolean infected = false;
-	boolean infected = false;
+	private boolean infected = false;
 	private double mobility;
 	private double vulnerability;
 
@@ -107,8 +106,12 @@ public abstract class Person {
 	 * @param isGroundInfected
 	 * @param numNeighboursInfected
 	 */
-	public void GetInfected(boolean isGroundInfected, int numNeighboursInfected) {
+	public void getInfected(boolean isGroundInfected, int numNeighboursInfected) {
 		if (this.shouldGetInfected(isGroundInfected, numNeighboursInfected))
 			this.infected = true;
+	}
+	
+	public boolean getInfected() {
+		return this.infected;
 	}
 }

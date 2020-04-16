@@ -20,10 +20,7 @@ public class ImmunePerson extends Person {
    * Draws the person
    */
   public void draw(double doubleH, double doubleW) {
-	  	if(infected)
-	  		StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "ImmuneInfected.png", doubleW, doubleH);
-  		else
-  			StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "Immune.png", doubleW, doubleH);
+  		StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "Immune.png", doubleW, doubleH);
 	}
 
 }

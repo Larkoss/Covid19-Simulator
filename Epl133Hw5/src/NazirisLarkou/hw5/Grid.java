@@ -10,16 +10,13 @@ import edu.princeton.cs.introcs.StdDraw;
  *
  */
 public class Grid {
-  private Cell[][] cells;
+	private Cell[][] cells;
 
 	private double doubleH; // Percentage the height of the box is according to canvas
 							// The length of height, of a single square
 	private double doubleW; // Percentage the width of the box is according to canvas
 							// The length of width, of a single square
 
-	{ // Instance Initialization Block
-		StdDraw.setCanvasSize(700, 700);
-	}
 
 	/**
 	 * Constructor that initializes the static doubles
@@ -28,17 +25,28 @@ public class Grid {
 	 * @param w X-axis
 	 */
 	public Grid(int h, int w) {
-    this.cells = new Cell[h][w];
+		this.cells = new Cell[h][w];
 
-    // Populate table
-    for(int i = 0; i < h; i ++) {
-      for(int j = 0; j < w; j ++) {
-        this.cells[i][j] = new Cell();
-      }
-    }
-
-		this.doubleH = 1.0 / h;
-		this.doubleW = 1.0 / w;
+		// Populate table
+		for(int i = 0; i < h; i ++) {
+			for(int j = 0; j < w; j ++) {
+				this.cells[i][j] = new Cell();
+			}
+		}
+		
+		
+		if(h>w) {
+			double num = (double)h / w;
+			this.doubleH = 1.0 / h;
+			this.doubleW = 1.0 / h * num;
+			StdDraw.setCanvasSize((int)(750.0/h*w), 750);
+		}
+		else {
+			double num = (double)w / h;
+			this.doubleH = 1.0 / w * num;
+			this.doubleW = 1.0 / w;
+			StdDraw.setCanvasSize(750, (int)(750.0/w*h));
+		}
 	}
 
 	/**
