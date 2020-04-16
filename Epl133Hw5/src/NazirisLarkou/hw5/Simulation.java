@@ -75,7 +75,7 @@ public class Simulation {
 
 			Person[] neighbours = getNeighbours(x, y, people);
 			int maxNeighbours = 8;
-			
+
 			switch(numOfWallsTouching(x, y, grid)) {
 				case 0:
 					maxNeighbours = 8;
@@ -95,8 +95,22 @@ public class Simulation {
 					break;
 			}
 
+			int infectedNeighbours = 0;
+
+			for(int j = 0; j < neighbours.length; j ++) {
+				if(neighbours[j].getIsInfected())
+					infectedNeighbours ++;
+			}
+
+			// Infect person
+			people[i].infect(grid.isCellInfected((int)x, (int)y, time), infectedNeighbours);
+			
+
 			if(!shouldMove || neighbours.length == maxNeighbours) {
-				grid.infectCell((int)people[i].getX(), (int)people[i].getY(), time);
+				if(people[i].getIsInfected()) {
+					grid.infectCell((int)people[i].getX(), (int)people[i].getY(), time);
+				}
+
 				continue;
 			}
 
@@ -140,7 +154,6 @@ public class Simulation {
 	 */
 	public static void mainLoop(Grid grid, Person people[], int simulationDuration) {
 		for(int time = 0; time < simulationDuration; time ++) {
-			System.out.println(time);
 			movePeople(people, grid, time);
 			grid.updateCells(time);
 			draw(grid, people);
@@ -245,6 +258,7 @@ public class Simulation {
 		Grid grid = initializeGrid();
 
 		Person[] people = initializePeople(grid.getHeight(), grid.getWidth());
+		people[0].setInfected(true);
 
 		// Draw once after initialization
 		draw(grid, people);

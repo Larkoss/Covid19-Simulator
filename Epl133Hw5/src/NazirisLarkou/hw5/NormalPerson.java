@@ -22,7 +22,7 @@ public class NormalPerson extends Person {
 	 * Draws the person
 	 */
 	public void draw(double doubleH, double doubleW) {
-	  	if(this.getInfected())
+	  	if(this.getIsInfected())
 	  		StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "NormalInfected.png", doubleW, doubleH);
   		else
   			StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), "Normal.png", doubleW, doubleH);

@@ -57,11 +57,9 @@ public abstract class Person {
 		this.y = y;
 	}
 
-	/**
-	 * @return the infected
-	 */
-	public boolean isInfected() {
-		return infected;
+	public void setInfected(boolean infected) {
+		this.infected = infected;
+		System.out.println(this.infected);
 	}
 
 	/**
@@ -116,12 +114,14 @@ public abstract class Person {
 	 * @param isGroundInfected
 	 * @param numNeighboursInfected
 	 */
-	public void getInfected(boolean isGroundInfected, int numNeighboursInfected) {
-		if (this.shouldGetInfected(isGroundInfected, numNeighboursInfected))
+	public void infect(boolean isGroundInfected, int numNeighboursInfected) {
+		if (this.shouldGetInfected(isGroundInfected, numNeighboursInfected)) {
 			this.infected = true;
+			System.out.println("H");
+		}
 	}
 	
-	public boolean getInfected() {
+	public boolean getIsInfected() {
 		return this.infected;
 	}
 }
