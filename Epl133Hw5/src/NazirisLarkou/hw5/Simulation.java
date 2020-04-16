@@ -9,11 +9,73 @@ import java.util.Scanner;
  * A class which is used to run the program
  * 
  * @author Konstantinos Larkou
+ * @author Andreas Naziris
  *
  */
 public class Simulation {
-	
-	
+	private static Person[] getNeighbours(double x, double y, Person people[]) {
+		Person[] neighbours = new Person[people.length];
+		int counter = 0;
+
+		for(int i = 0; i < people.length; i++) {
+			if(Math.abs(people[i].getX() - x) == 1 || Math.abs(people[i].getY() - y) == 1) {
+				neighbours[counter ++] = people[i];
+			}
+		}
+
+		Person[] results = new Person[counter];
+		for(int i = 0; i < counter; i ++) {
+			results[i] = neighbours[i];
+		}
+
+		return results;
+	}
+
+	private static boolean isCellEmpty(double x, double y, Person people[]) {
+		for(int i = 0; i < people.length; i++)
+			if(people[i].getX() == x && people[i].getY() == y)
+				return false;
+
+		return true;
+	}
+
+	/**
+	 * A function that handles movement of people.
+	 * @param people an array of Person objects
+	 */
+	public static void movePeople(Person people[]) {
+		for(int i = 0; i < people.length; i ++) {
+			boolean shouldMove = people[i].shouldMove();
+
+			// Go to next person if this person shouldn't move or if surrounded.
+			Person[] neighbours = getNeighbours(people[i].getX(), people[i].getY(), people);
+			if(!shouldMove || neighbours.length == 8) continue;
+
+			double newX;
+			double newY;
+			do {
+				// Offset of -1 or 1
+				double xOffset = Math.floor(Math.random() * 2) * 2 - 1;
+				double yOffset = Math.floor(Math.random() * 2) * 2 - 1;
+
+				newX = people[i].getX() + xOffset;
+				newY = people[i].getY() + yOffset;
+			} while (isCellEmpty(newX, newY, people));
+
+			people[i].move(newX, newY);
+		}
+	}
+	/**
+	 * The main loop of the simulation.
+	 * @param grid the Grid of cells
+	 * @param people an array of Person objects
+	 * @param simulationDuration the int representing the duration of the simulation
+	 */
+	public static void mainLoop(Grid grid, Person people[], int simulationDuration) {
+		for(int time = 0; time < simulationDuration; time ++) {
+			movePeople(people);
+		}
+	}
 
 	public static void main(String args[]) {
 		Scanner scan = new Scanner(System.in);
@@ -104,9 +166,9 @@ public class Simulation {
 			StdDraw.show();
 		}
 		
-		grid.drawGrid();
-		StdDraw.show();
 		scan.close();
+		
+		mainLoop(grid, p, 120);
 	}
 
 }

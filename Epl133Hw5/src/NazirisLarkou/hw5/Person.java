@@ -48,6 +48,16 @@ public abstract class Person {
 	}
 
 	/**
+	 * Setter for x and y.
+	 * @param x the double x coordinate
+	 * @param y the double y coordinate
+	 */
+	public void move(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	/**
 	 * @return the infected
 	 */
 	public boolean isInfected() {
