@@ -21,7 +21,7 @@ public class Simulation {
 		int h = 0, w = 0;
 		boolean input;
 		
-		System.out.println("Enter height, width of grid, between 1 and 15: ");
+		System.out.println("Enter height and width of grid, between 1 and 15: ");
 		input = false;
 		while(!input) {
 			try {
@@ -77,18 +77,18 @@ public class Simulation {
 		Person p[] = new Person[size];
 		double random;
 		int x = -1, y = -1;
-		boolean isCellOccupied;
+		boolean isCellEmpty;
 
 		for (int i = 0; i < size; i++) {
-			isCellOccupied = false;
+			isCellEmpty = false;
 			random = Math.random();
-			while(!isCellOccupied) {
-				isCellOccupied = true;
+			while(!isCellEmpty) {
+				isCellEmpty = true;
 				x = (int) Math.floor(Math.random() * (w));
 				y = (int) Math.floor(Math.random() * (h));
 				for(int j = 0; j < i; j++)
 					if(p[j].getX() == x && p[j].getY() == y)
-						isCellOccupied = false;
+						isCellEmpty = false;
 			}
 			
 			if(random <= 0.3)
@@ -106,7 +106,7 @@ public class Simulation {
 		
 		grid.drawGrid();
 		StdDraw.show();
-		
+		scan.close();
 	}
 
 }
