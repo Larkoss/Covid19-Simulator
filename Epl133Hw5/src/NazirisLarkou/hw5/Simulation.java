@@ -250,8 +250,11 @@ public class Simulation {
 
 		// Draw once after initialization
 		draw(grid, people, 0);
+		System.out.println("<---START OF SIMULATION--->");
 		
 		mainLoop(grid, people, steps);
+
+		System.out.println("<---END OF SIMULATION--->");
 
 		printInformation(init, grid, people);
 	}
