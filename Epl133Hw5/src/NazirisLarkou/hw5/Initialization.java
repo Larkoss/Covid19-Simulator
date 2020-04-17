@@ -160,6 +160,7 @@ public class Initialization {
 			}
 		}
 
+		if(probability == -1) probability = PERSON_TO_PERSON_INFECTION_PROBABILITY;
     Person.setPersonPossibility(probability);
     this.personToPersonInfectionProbability = probability;
 	};
@@ -199,6 +200,7 @@ public class Initialization {
 			}
 		}
 
+		if(probability == -1) probability = CELL_TO_PERSON_INFECTION_PROBABILITY;
 		Person.setGroundPossibility(probability);
     this.cellToPersonInfectionProbability = probability;
 	};
@@ -238,6 +240,7 @@ public class Initialization {
 			}
 		}
 
+		if(probability == -1) probability = PERSON_TO_CELL_INFECTION_PROBABILITY;
     Cell.setInfectionPropability(probability);
     this.personToCellInfectionProbability = probability;
 	};
@@ -278,6 +281,7 @@ public class Initialization {
 			}
 		}
 
+		if(probability == -1) probability = IMMUNE_PERSON_PROBABILITY;
     this.immunePersonProbability = probability;
     return probability;
 	};
@@ -317,6 +321,7 @@ public class Initialization {
 			}
 		}
 
+		if(period == -1) period = DISINFECTION_PERIOD;
     Cell.setDisinfectionPeriod(period);
     this.disinfectionPeriod = period;
 	};
@@ -363,6 +368,7 @@ public class Initialization {
 			}
 		}
 
+		if(num == -1) num = INFECTED_PEOPLE_ON_STARTUP;
     this.infectedPeopleOnStartup = num;
 		return num;
 	};
@@ -403,6 +409,7 @@ public class Initialization {
 			}
 		}
 
+		if(num == -1) num = SIMULATION_DURATION;
     this.simulationDuration = num;
 		return num;
 	};
