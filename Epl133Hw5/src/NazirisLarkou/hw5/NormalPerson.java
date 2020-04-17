@@ -6,7 +6,7 @@ package NazirisLarkou.hw5;
  * @author Konstantinos Larkou
  */
 public class NormalPerson extends Person {
-	static {
+	{
 		type = "Normal";
 	}
 

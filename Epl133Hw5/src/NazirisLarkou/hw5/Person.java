@@ -16,7 +16,7 @@ public abstract class Person {
 	private final static double groundPossibility = 0.4;
 	private final static double personPossibility = 0.75;
 
-	protected static String type;
+	protected String type;
 
 	/**
 	 * Class constructor specifying x and y
@@ -117,14 +117,14 @@ public abstract class Person {
 		if (isGroundInfected) {
 			newPossibility = Person.groundPossibility * this.vulnerability;
 			random = Math.random();
-			if (random > newPossibility)
+			if (random < newPossibility)
 				return true;
 		}
 
 		for (int i = 0; i < numNeighboursInfected; i++) {
 			newPossibility = Person.personPossibility * this.vulnerability;
 			random = Math.random();
-			if (random > newPossibility)
+			if (random < newPossibility)
 				return true;
 		}
 

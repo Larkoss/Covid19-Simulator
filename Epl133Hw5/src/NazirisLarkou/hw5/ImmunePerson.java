@@ -6,8 +6,8 @@ package NazirisLarkou.hw5;
  * @author Konstantinos Larkou
  */
 public class ImmunePerson extends Person {
-	static {
-		type = "Careful";
+	{
+		type = "Immune";
   }
 
   /**

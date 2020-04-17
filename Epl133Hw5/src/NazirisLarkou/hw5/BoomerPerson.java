@@ -6,7 +6,7 @@ package NazirisLarkou.hw5;
  * @author Andreas Naziris
  */
 public class BoomerPerson extends Person {
-	static {
+	{
 		type = "Boomer";
 	}
 
