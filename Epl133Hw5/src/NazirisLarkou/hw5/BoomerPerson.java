@@ -4,6 +4,7 @@ package NazirisLarkou.hw5;
  * A class representing a boomer(old person)
  *
  * @author Andreas Naziris
+ * @author Konstantinos Larkos
  */
 public class BoomerPerson extends Person {
 	{

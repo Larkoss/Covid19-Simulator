@@ -61,6 +61,8 @@ public class Simulation {
 	/**
 	 * A function that handles movement of people.
 	 * @param people an array of Person objects
+	 * @param grid the grid
+	 * @param time the current time
 	 */
 	public static void movePeople(Person people[], Grid grid, int time) {
 		for(int i = 0; i < people.length; i ++) {
@@ -170,6 +172,11 @@ public class Simulation {
 		return c;
 	}
 
+	/**
+	 * Infect a number of people on startup.
+	 * @param people an array of people that will be in the simulation
+	 * @param num number of people to infect
+	 */
 	public static void infectNumOfPeople(Person[] people, int num) {
 		for(int j = 0; j < num; j ++) {
 			for(int i = j; i < people.length; i ++) {
