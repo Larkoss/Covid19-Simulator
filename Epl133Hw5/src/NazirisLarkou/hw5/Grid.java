@@ -63,13 +63,19 @@ public class Grid {
 		return doubleW;
 	}
 
-  /**
-   * Getter for grid area
-   * @return grid area
-   */
-  public int getArea() {
-    return this.cells.length * this.cells[0].length;
-  }
+	/**
+	 * @return the height
+	 */
+	public double getHeight() {
+		return this.cells.length;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public double getWidth() {
+		return this.cells[0].length;
+	}
 
   /**
    * Getter for if cell is infected
@@ -92,10 +98,27 @@ public class Grid {
     this.cells[y][x].infect(time);
   }
 
+	/**
+	 * Update all cells.
+	 * @param time the current time
+	 */
+	public void updateCells(int time) {
+		for(int i = 0; i < this.getHeight(); i ++) {
+			for(int j = 0; j < this.getWidth(); j ++) {
+				this.cells[i][j].updateInfected(false, time);
+			}
+		}
+	}
+
   /**
    * Draw the grid.
    */
 	public void drawGrid() {
+		for(int i = 0; i < this.getHeight(); i ++) {
+			for(int j = 0; j < this.getWidth(); j ++) {
+				this.cells[i][j].draw(j, i, doubleW, doubleH);
+			}
+		}
     // Draws horizontal lines
     for (double j = 0; j < 1; j += doubleH)
       StdDraw.line(0, j, 1, j);

@@ -1,4 +1,5 @@
 package NazirisLarkou.hw5;
+import edu.princeton.cs.introcs.StdDraw;
 
 /**
  * General abstract that represents a person
@@ -12,8 +13,10 @@ public abstract class Person {
 	private double mobility;
 	private double vulnerability;
 
-	private final static double groundPossibility = 0.4;
-	private final static double personPossibility = 0.75;
+	private static double groundPossibility = 0.4;
+	private static double personPossibility = 0.75;
+
+	protected String type;
 
 	/**
 	 * Class constructor specifying x and y
@@ -33,6 +36,14 @@ public abstract class Person {
 		this.vulnerability = vulnerability;
 	}
 
+	public static void setGroundPossibility(double possibility) {
+		Person.groundPossibility = possibility;
+	}
+
+	public static void setPersonPossibility(double possibility) {
+		Person.personPossibility = possibility;
+	}
+
 	/**
 	 * @return the x
 	 */
@@ -48,16 +59,44 @@ public abstract class Person {
 	}
 
 	/**
-	 * @return the infected
+	 * Setter for x and y.
+	 * @param x the double x coordinate
+	 * @param y the double y coordinate
 	 */
-	public boolean isInfected() {
-		return infected;
+	public void move(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public void setInfected(boolean infected) {
+		this.infected = infected;
+	}
+
+	private void drawImg(double doubleH, double doubleW, String name) {
+		StdDraw.picture((this.getX() * doubleW) + (doubleW / 2), (this.getY() * doubleH) + (doubleH / 2), name + ".png", doubleW, doubleH);
 	}
 
 	/**
 	 * Abstract method that draws the person on the grid
 	 */
-	public abstract void draw(double doubleH, double doubleW);
+	public void draw(double doubleH, double doubleW, boolean isCellInfected) {
+		String name = type;
+
+		if(this.infected) {
+			name += "Infected";
+			if(isCellInfected) {
+				this.drawImg(doubleH, doubleW, name + "Both");
+			} else {
+				this.drawImg(doubleH, doubleW, name);
+			}
+		} else {
+			if(isCellInfected) {
+				this.drawImg(doubleH, doubleW, name + "InfectedFloor");
+			} else {
+				this.drawImg(doubleH, doubleW, name);
+			}
+		}
+	}
 
 	/**
 	 * Method that depending on probability decides if a person should move
@@ -86,14 +125,14 @@ public abstract class Person {
 		if (isGroundInfected) {
 			newPossibility = Person.groundPossibility * this.vulnerability;
 			random = Math.random();
-			if (random > newPossibility)
+			if (random < newPossibility)
 				return true;
 		}
 
 		for (int i = 0; i < numNeighboursInfected; i++) {
 			newPossibility = Person.personPossibility * this.vulnerability;
 			random = Math.random();
-			if (random > newPossibility)
+			if (random < newPossibility)
 				return true;
 		}
 
@@ -106,12 +145,13 @@ public abstract class Person {
 	 * @param isGroundInfected
 	 * @param numNeighboursInfected
 	 */
-	public void getInfected(boolean isGroundInfected, int numNeighboursInfected) {
-		if (this.shouldGetInfected(isGroundInfected, numNeighboursInfected))
+	public void infect(boolean isGroundInfected, int numNeighboursInfected) {
+		if (this.shouldGetInfected(isGroundInfected, numNeighboursInfected)) {
 			this.infected = true;
+		}
 	}
 	
-	public boolean getInfected() {
+	public boolean getIsInfected() {
 		return this.infected;
 	}
 }
