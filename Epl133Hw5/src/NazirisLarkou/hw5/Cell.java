@@ -5,6 +5,7 @@ import edu.princeton.cs.introcs.StdDraw;
  * A class representing a cell of the grid
  *
  * @author Andreas Naziris
+ * @author Konstantinos Larkou
  *
  */
 public class Cell {
@@ -106,6 +107,13 @@ public class Cell {
 		}
 	}
 
+	/**
+	 * Draw the cell.
+	 * @param x the double x coordinate
+	 * @param y the double y coordinate
+	 * @param doubleW the double width of the cell
+	 * @param doubleH the double height of the cell
+	 */
 	public void draw(double x, double y, double doubleW, double doubleH) {
 		if(this.isInfected) {
 			StdDraw.setPenColor(StdDraw.ORANGE);

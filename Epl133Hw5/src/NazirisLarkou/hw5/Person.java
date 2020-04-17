@@ -5,6 +5,7 @@ import edu.princeton.cs.introcs.StdDraw;
  * General abstract that represents a person
  * 
  * @author Konstantinos Larkou
+ * @author Andreas Naziris
  *
  */
 public abstract class Person {
@@ -21,14 +22,22 @@ public abstract class Person {
 	/**
 	 * Class constructor specifying x and y
 	 * 
-	 * @param x2 the double X position
-	 * @param y2 the double Y position
+	 * @param x the double X position
+	 * @param y the double Y position
 	 */
 	public Person(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 	
+	/**
+	 * Class constructor specifying x, y, mobility and vulnerability.
+	 * 
+	 * @param x the double X position
+	 * @param y the double Y position
+	 * @param mobility the double mobility
+	 * @param vulnerability the double vulnerability
+	 */
 	public Person(double x, double y, double mobility, double vulnerability) {
 		this.x = x;
 		this.y = y;
@@ -36,15 +45,24 @@ public abstract class Person {
 		this.vulnerability = vulnerability;
 	}
 
+	/**
+	 * Setter for probability of infection from the ground.
+	 * @param possibility possibility of infection from the ground
+	 */
 	public static void setGroundPossibility(double possibility) {
 		Person.groundPossibility = possibility;
 	}
 
+	/**
+	 * Setter for probability of infectino from another person.
+	 * @param possibility probability of infection from another person.
+	 */
 	public static void setPersonPossibility(double possibility) {
 		Person.personPossibility = possibility;
 	}
 
 	/**
+	 * Getter for X coordinate of person
 	 * @return the x
 	 */
 	public double getX() {
@@ -52,6 +70,7 @@ public abstract class Person {
 	}
 
 	/**
+	 * Getter for Y coordinate of person
 	 * @return the y
 	 */
 	public double getY() {
@@ -68,6 +87,10 @@ public abstract class Person {
 		this.y = y;
 	}
 
+	/**
+	 * Setter for whether the person is infected or not
+	 * @param infected
+	 */
 	public void setInfected(boolean infected) {
 		this.infected = infected;
 	}
@@ -77,7 +100,10 @@ public abstract class Person {
 	}
 
 	/**
-	 * Abstract method that draws the person on the grid
+	 * Draws person.
+	 * @param doubleH the width of the person on the canvas
+	 * @param doubleW the height of the person on the canvas
+	 * @param isCellInfected is the cell beneath the person infected
 	 */
 	public void draw(double doubleH, double doubleW, boolean isCellInfected) {
 		String name = type;
@@ -140,10 +166,10 @@ public abstract class Person {
 	}
 
 	/**
-	 * Method that sets infected.
+	 * Method that sets infected based on whether person should get infected.
 	 * 
-	 * @param isGroundInfected
-	 * @param numNeighboursInfected
+	 * @param isGroundInfected is the ground ifected
+	 * @param numNeighboursInfected how many ifected neighbours the person has
 	 */
 	public void infect(boolean isGroundInfected, int numNeighboursInfected) {
 		if (this.shouldGetInfected(isGroundInfected, numNeighboursInfected)) {
@@ -151,6 +177,10 @@ public abstract class Person {
 		}
 	}
 	
+	/**
+	 * Getter for isInfected
+	 * @return is infected
+	 */
 	public boolean getIsInfected() {
 		return this.infected;
 	}

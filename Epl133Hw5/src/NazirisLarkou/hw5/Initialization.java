@@ -2,6 +2,11 @@ package NazirisLarkou.hw5;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/**
+ * A class used for initializing a simulation's variables.
+ * 
+ * @author Andreas Naziris
+ */
 public class Initialization {
 	private static final double PERSON_TO_PERSON_INFECTION_PROBABILITY = .75;
 	private static final double CELL_TO_PERSON_INFECTION_PROBABILITY = .10;
@@ -19,6 +24,10 @@ public class Initialization {
 	public int infectedPeopleOnStartup;
 	public int simulationDuration;
 
+	/**
+	 * Initialize grid.
+	 * @return returns the initialized grid.
+	 */
 	public Grid initializeGrid() {
 		Scanner scan = new Scanner(System.in);
 		int h = 0, w = 0;
@@ -53,6 +62,10 @@ public class Initialization {
 		return new Grid(h, w);
   }
 
+	/**
+	 * Initialize people.
+	 * @return returns the initialized grid.
+	 */
 	public Person[] initializePeople(double height, double width) {
 		int size = 0, area = (int)(height * width);
 		boolean input;
@@ -112,6 +125,9 @@ public class Initialization {
 		return p;
 	}
 
+	/**
+	 * Initialize person to person infection probability.
+	 */
 	public void initializePersonToPersonInfectionProbability() {
 		boolean input;
 		double probability = PERSON_TO_PERSON_INFECTION_PROBABILITY;
@@ -148,6 +164,9 @@ public class Initialization {
     this.personToPersonInfectionProbability = probability;
 	};
 
+	/**
+	 * Initialize cell to person infection probability.
+	 */
 	public void initializeCellToPersonInfectionProbability() {
 		boolean input;
 		double probability = CELL_TO_PERSON_INFECTION_PROBABILITY;
@@ -184,6 +203,9 @@ public class Initialization {
     this.cellToPersonInfectionProbability = probability;
 	};
 
+	/**
+	 * Initialize person to cell infection probability.
+	 */
 	public void initializePersonToCellInfectionProbability() {
 		boolean input;
 		double probability = PERSON_TO_CELL_INFECTION_PROBABILITY;
@@ -220,6 +242,10 @@ public class Initialization {
     this.personToCellInfectionProbability = probability;
 	};
 
+	/**
+	 * Get the probability of a person being immune from user.
+	 * @return the probability of a person being immune.
+	 */
 	public double getImmunePeopleProbability() {
 		boolean input;
 		double probability = IMMUNE_PERSON_PROBABILITY;
@@ -256,6 +282,9 @@ public class Initialization {
     return probability;
 	};
 
+	/**
+	 * Initialize cell disinfection period.
+	 */
 	public void initializeCellDisinfectionPeriod() {
 		boolean input;
 		int period = DISINFECTION_PERIOD;
@@ -292,6 +321,11 @@ public class Initialization {
     this.disinfectionPeriod = period;
 	};
 
+	/**
+	 * Get nubmer of infected people on start up from user.
+	 * @param people number of non immune people
+	 * @return number of infected people on start up
+	 */
 	public int getNumOfInfectedPeopleOnStartUp(int people) {
 		// If no people return 0
 		if(people == 0) {
@@ -333,6 +367,10 @@ public class Initialization {
 		return num;
 	};
 
+	/**
+	 * Get duration for simulation from user.
+	 * @return number of steps/minutes the simulation should last for
+	 */
 	public int getSimulationDuration() {
 		boolean input;
 		int num = SIMULATION_DURATION;

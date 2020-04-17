@@ -4,6 +4,7 @@ package NazirisLarkou.hw5;
  * A class representing an immune to the disease person
  *
  * @author Konstantinos Larkou
+ * @author Andreas Naziris
  */
 public class ImmunePerson extends Person {
 	{

@@ -50,6 +50,7 @@ public class Grid {
 	}
 
 	/**
+	 * Getter for the double height of each cell used for drawing.
 	 * @return the doubleH
 	 */
 	public double getDoubleH() {
@@ -57,6 +58,7 @@ public class Grid {
 	}
 
 	/**
+	 * Getter for the double width of each cell used for drawing.
 	 * @return the doubleW
 	 */
 	public double getDoubleW() {
@@ -64,6 +66,7 @@ public class Grid {
 	}
 
 	/**
+	 * Getter for the height of the grid.
 	 * @return the height
 	 */
 	public double getHeight() {
@@ -71,6 +74,7 @@ public class Grid {
 	}
 
 	/**
+	 * Getter for the width of the grid.
 	 * @return the width
 	 */
 	public double getWidth() {

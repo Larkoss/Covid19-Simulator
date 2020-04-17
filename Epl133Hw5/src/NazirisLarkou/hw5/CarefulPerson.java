@@ -4,6 +4,7 @@ package NazirisLarkou.hw5;
  * A class representing a careful person
  *
  * @author Konstantinos Larkou
+ * @author Andreas Naziris
  */
 public class CarefulPerson extends Person {
 	{
