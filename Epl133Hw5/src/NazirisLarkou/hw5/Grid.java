@@ -103,8 +103,8 @@ public class Grid {
 	 * @param time the current time
 	 */
 	public void updateCells(int time) {
-		for(int i = 0; i < this.cells.length; i ++) {
-			for(int j = 0; j < this.cells[0].length; j ++) {
+		for(int i = 0; i < this.getHeight(); i ++) {
+			for(int j = 0; j < this.getWidth(); j ++) {
 				this.cells[i][j].updateInfected(false, time);
 			}
 		}
@@ -114,6 +114,11 @@ public class Grid {
    * Draw the grid.
    */
 	public void drawGrid() {
+		for(int i = 0; i < this.getHeight(); i ++) {
+			for(int j = 0; j < this.getWidth(); j ++) {
+				this.cells[i][j].draw(j, i, doubleW, doubleH);
+			}
+		}
     // Draws horizontal lines
     for (double j = 0; j < 1; j += doubleH)
       StdDraw.line(0, j, 1, j);

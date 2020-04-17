@@ -144,7 +144,7 @@ public class Simulation {
 		}
 
 		StdDraw.show();
-		StdDraw.pause(0);
+		StdDraw.pause(1000);
 	}
 
 	/**

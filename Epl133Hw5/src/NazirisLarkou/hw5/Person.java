@@ -62,7 +62,6 @@ public abstract class Person {
 
 	public void setInfected(boolean infected) {
 		this.infected = infected;
-		System.out.println(this.infected);
 	}
 
 	private void drawImg(double doubleH, double doubleW, String name) {
@@ -80,13 +79,13 @@ public abstract class Person {
 			if(isCellInfected) {
 				this.drawImg(doubleH, doubleW, name + "Both");
 			} else {
-				this.drawImg(doubleH, doubleW, name + "Floor");
+				this.drawImg(doubleH, doubleW, name);
 			}
 		} else {
 			if(isCellInfected) {
-				this.drawImg(doubleH, doubleW, name + "Both");
+				this.drawImg(doubleH, doubleW, name + "InfectedFloor");
 			} else {
-				this.drawImg(doubleH, doubleW, name + "Floor");
+				this.drawImg(doubleH, doubleW, name);
 			}
 		}
 	}
@@ -141,7 +140,6 @@ public abstract class Person {
 	public void infect(boolean isGroundInfected, int numNeighboursInfected) {
 		if (this.shouldGetInfected(isGroundInfected, numNeighboursInfected)) {
 			this.infected = true;
-			System.out.println("H");
 		}
 	}
 	

@@ -45,7 +45,7 @@ public class Cell {
 	public void infect(int time) {
 		double random = Math.random();
 
-		if(random > Cell.infectionPropability) {
+		if(random < Cell.infectionPropability) {
 			this.updateInfected(true, time);
 		}
 	}
@@ -109,10 +109,6 @@ public class Cell {
 	public void draw(double x, double y, double doubleW, double doubleH) {
 		if(this.isInfected) {
 			StdDraw.setPenColor(StdDraw.ORANGE);
-			StdDraw.filledRectangle((x * doubleW) + (doubleW / 2), (y * doubleH) + (doubleH / 2), doubleW / 2, doubleH / 2);
-			StdDraw.setPenColor();
-		}else {
-			StdDraw.setPenColor(StdDraw.WHITE);
 			StdDraw.filledRectangle((x * doubleW) + (doubleW / 2), (y * doubleH) + (doubleH / 2), doubleW / 2, doubleH / 2);
 			StdDraw.setPenColor();
 		}
