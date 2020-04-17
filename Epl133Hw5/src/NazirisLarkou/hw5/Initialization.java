@@ -11,7 +11,15 @@ public class Initialization {
 	private static final int INFECTED_PEOPLE_ON_STARTUP = 1;
 	private static final int SIMULATION_DURATION = 10;
 
-	public static Grid initializeGrid() {
+	public double personToPersonInfectionProbability;
+	public double cellToPersonInfectionProbability;
+	public double personToCellInfectionProbability;
+	public double immunePersonProbability;
+	public int disinfectionPeriod;
+	public int infectedPeopleOnStartup;
+	public int simulationDuration;
+
+	public Grid initializeGrid() {
 		Scanner scan = new Scanner(System.in);
 		int h = 0, w = 0;
 		boolean input;
@@ -45,7 +53,7 @@ public class Initialization {
 		return new Grid(h, w);
   }
 
-	public static Person[] initializePeople(double height, double width) {
+	public Person[] initializePeople(double height, double width) {
 		int size = 0, area = (int)(height * width);
 		boolean input;
 		Scanner scan = new Scanner(System.in);
@@ -104,7 +112,7 @@ public class Initialization {
 		return p;
 	}
 
-	public static void initializePersonToPersonInfectionProbability() {
+	public void initializePersonToPersonInfectionProbability() {
 		boolean input;
 		double probability = PERSON_TO_PERSON_INFECTION_PROBABILITY;
 		Scanner scan = new Scanner(System.in);
@@ -136,10 +144,11 @@ public class Initialization {
 			}
 		}
 
-		Person.setPersonPossibility(probability);
+    Person.setPersonPossibility(probability);
+    this.personToPersonInfectionProbability = probability;
 	};
 
-	public static void initializeCellToPersonInfectionProbability() {
+	public void initializeCellToPersonInfectionProbability() {
 		boolean input;
 		double probability = CELL_TO_PERSON_INFECTION_PROBABILITY;
 		Scanner scan = new Scanner(System.in);
@@ -172,9 +181,10 @@ public class Initialization {
 		}
 
 		Person.setGroundPossibility(probability);
+    this.cellToPersonInfectionProbability = probability;
 	};
 
-	public static void initializePersonToCellInfectionProbability() {
+	public void initializePersonToCellInfectionProbability() {
 		boolean input;
 		double probability = PERSON_TO_CELL_INFECTION_PROBABILITY;
 		Scanner scan = new Scanner(System.in);
@@ -206,10 +216,11 @@ public class Initialization {
 			}
 		}
 
-		Cell.setInfectionPropability(probability);
+    Cell.setInfectionPropability(probability);
+    this.personToCellInfectionProbability = probability;
 	};
 
-	public static double getImmunePeopleProbability() {
+	public double getImmunePeopleProbability() {
 		boolean input;
 		double probability = IMMUNE_PERSON_PROBABILITY;
 		Scanner scan = new Scanner(System.in);
@@ -241,10 +252,11 @@ public class Initialization {
 			}
 		}
 
-		return probability;
+    this.immunePersonProbability = probability;
+    return probability;
 	};
 
-	public static void initializeCellDisinfectionPeriod() {
+	public void initializeCellDisinfectionPeriod() {
 		boolean input;
 		int period = DISINFECTION_PERIOD;
 		Scanner scan = new Scanner(System.in);
@@ -276,10 +288,11 @@ public class Initialization {
 			}
 		}
 
-		Cell.setDisinfectionPeriod(period);
+    Cell.setDisinfectionPeriod(period);
+    this.disinfectionPeriod = period;
 	};
 
-	public static int getNumOfInfectedPeopleOnStartUp(int people) {
+	public int getNumOfInfectedPeopleOnStartUp(int people) {
 		// If no people return 0
 		if(people == 0) {
 			return 0;
@@ -316,10 +329,11 @@ public class Initialization {
 			}
 		}
 
+    this.infectedPeopleOnStartup = num;
 		return num;
 	};
 
-	public static int getSimulationDuration() {
+	public int getSimulationDuration() {
 		boolean input;
 		int num = SIMULATION_DURATION;
 		Scanner scan = new Scanner(System.in);
@@ -351,6 +365,7 @@ public class Initialization {
 			}
 		}
 
+    this.simulationDuration = num;
 		return num;
 	};
 }

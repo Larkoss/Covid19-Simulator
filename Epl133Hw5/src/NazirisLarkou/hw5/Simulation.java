@@ -182,28 +182,71 @@ public class Simulation {
 		}
 	}
 
+	private static void printInformation(Initialization init, Grid grid, Person[] people) {
+		System.out.print("Grid dimensions: ");
+		System.out.println(grid.getWidth() + "x" + grid.getWidth());
+
+		System.out.print("Number of people: ");
+		System.out.println(people.length);
+		
+		System.out.print("Person to person infection probability: ");
+		System.out.println(init.personToPersonInfectionProbability);
+
+		System.out.print("Person to cell infection probability: ");
+		System.out.println(init.personToCellInfectionProbability);
+
+		System.out.print("Cell to person infection probability: ");
+		System.out.println(init.cellToPersonInfectionProbability);
+
+		System.out.print("Cell disinfection period: ");
+		System.out.println(init.disinfectionPeriod);
+
+		System.out.print("Number of infected people on startup: ");
+		System.out.println(init.infectedPeopleOnStartup);
+		
+		System.out.print("Immune people probability: ");
+		System.out.println(init.immunePersonProbability);
+		
+		System.out.print("Duration of simulation: ");
+		System.out.println(init.simulationDuration);
+
+		System.out.print("Number of infected people in the end of the simulation: ");
+
+		int infectedPeople = 0;
+		for(int j = 0; j < people.length; j ++) {
+			if(people[j].getIsInfected())
+				infectedPeople ++;
+		}
+
+		System.out.println(infectedPeople);
+	}
+
 	public static void main(String args[]) {
-		Grid grid = Initialization.initializeGrid();
-		Person[] people = Initialization.initializePeople(grid.getHeight(), grid.getWidth());
+		Initialization init = new Initialization();
+
+		Grid grid = init.initializeGrid();
+		Person[] people = init.initializePeople(grid.getHeight(), grid.getWidth());
 
 		// Initialize all variables
-		Initialization.initializePersonToPersonInfectionProbability();
-		Initialization.initializeCellToPersonInfectionProbability();
-		Initialization.initializePersonToCellInfectionProbability();
-		Initialization.initializeCellDisinfectionPeriod();
+		init.initializePersonToPersonInfectionProbability();
+		init.initializeCellToPersonInfectionProbability();
+		init.initializePersonToCellInfectionProbability();
+		init.initializeCellDisinfectionPeriod();
 
 		// Infect a number of people on start up
 		int numOfNonImmunePeople = people.length - numOfImmunePeopleInArr(people);
-		int numOfInfected = Initialization.getNumOfInfectedPeopleOnStartUp(numOfNonImmunePeople);
+		int numOfInfected = init.getNumOfInfectedPeopleOnStartUp(numOfNonImmunePeople);
 
 		infectNumOfPeople(people, numOfInfected);
 
-		int steps = Initialization.getSimulationDuration();
+		int steps = init.getSimulationDuration();
 
 		// Draw once after initialization
 		draw(grid, people, 0);
 		
 		mainLoop(grid, people, steps);
+
+		printInformation(init, grid, people);
 	}
 
 }
