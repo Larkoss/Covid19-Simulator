@@ -13,8 +13,8 @@ public abstract class Person {
 	private double mobility;
 	private double vulnerability;
 
-	private final static double groundPossibility = 0.4;
-	private final static double personPossibility = 0.75;
+	private static double groundPossibility = 0.4;
+	private static double personPossibility = 0.75;
 
 	protected String type;
 
@@ -34,6 +34,14 @@ public abstract class Person {
 		this.y = y;
 		this.mobility = mobility;
 		this.vulnerability = vulnerability;
+	}
+
+	public static void setGroundPossibility(double possibility) {
+		Person.groundPossibility = possibility;
+	}
+
+	public static void setPersonPossibility(double possibility) {
+		Person.personPossibility = possibility;
 	}
 
 	/**

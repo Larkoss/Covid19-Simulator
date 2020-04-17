@@ -5,6 +5,8 @@ import edu.princeton.cs.introcs.StdDraw;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import org.junit.platform.launcher.PostDiscoveryFilter;
+
 /**
  * A class which is used to run the program
  * 
@@ -13,6 +15,14 @@ import java.util.Scanner;
  *
  */
 public class Simulation {
+	private static final double PERSON_TO_PERSON_INFECTION_PROBABILITY = .75;
+	private static final double CELL_TO_PERSON_INFECTION_PROBABILITY = .10;
+	private static final double PERSON_TO_CELL_INFECTION_PROBABILITY = .10;
+	private static final double IMMUNE_PERSON_PROBABILITY = .10;
+	private static final int DISINFECTION_PERIOD = 9;
+	private static final int INFECTED_PEOPLE_ON_STARTUP = 1;
+	private static final int SIMULATION_DURATION = 10;
+
 	private static int numOfWallsTouching(double x, double y, Grid grid) {
 		int walls = 0;
 
@@ -221,6 +231,9 @@ public class Simulation {
 				System.out.println("Wrong Input. Enter again:");
 			}
 		}
+
+		double immuneChance = getImmunePeopleProbability();
+		double otherChance = (1 - immuneChance) / 3.0;
 		
 		Person[] p = new Person[size];
 		double random;
@@ -239,11 +252,11 @@ public class Simulation {
 						isCellEmpty = false;
 			}
 			
-			if(random <= 0.3)
+			if(random <= otherChance)
 				p[i] = new BoomerPerson(x, y);
-			else if(random <= 0.6)
+			else if(random <= 2 * otherChance)
 				p[i] = new NormalPerson(x, y);
-			else if(random <= 0.9)
+			else if(random <= 3 * otherChance)
 				p[i] = new CarefulPerson(x, y);
 			else
 				p[i] = new ImmunePerson(x, y);
@@ -252,19 +265,306 @@ public class Simulation {
 		return p;
 	}
 
+	private static void initializePersonToPersonInfectionProbability() {
+		boolean input;
+		double probability = PERSON_TO_PERSON_INFECTION_PROBABILITY;
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("Enter person to person infection probability, number from 0.0 to 1.0:");
+		System.out.println("If you want to use default values enter -1:");
+
+		input = false;
+
+		while(!input) {
+			try {
+				probability = scan.nextDouble();
+
+				// Use default values
+				if(probability == -1) break;
+
+				if(probability > 1 || probability < 0)
+					throw new ArithmeticException("Probability can't be below 0 or above 1. Enter again: ");
+
+				input = true;
+			}
+			catch(ArithmeticException e) {
+				scan.nextLine();
+				System.out.println(e.getMessage());
+			}
+			catch(InputMismatchException e) {
+				scan.nextLine();
+				System.out.println("Wrong Input. Enter again:");
+			}
+		}
+
+		Person.setPersonPossibility(probability);
+	};
+
+	private static void initializeCellToPersonInfectionProbability() {
+		boolean input;
+		double probability = CELL_TO_PERSON_INFECTION_PROBABILITY;
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("Enter cell to person infection probability, number from 0.0 to 1.0:");
+		System.out.println("If you want to use default values enter -1:");
+
+		input = false;
+
+		while(!input) {
+			try {
+				probability = scan.nextDouble();
+
+				// Use default values
+				if(probability == -1) break;
+
+				if(probability > 1 || probability < 0)
+					throw new ArithmeticException("Probability can't be below 0 or above 1. Enter again: ");
+
+				input = true;
+			}
+			catch(ArithmeticException e) {
+				scan.nextLine();
+				System.out.println(e.getMessage());
+			}
+			catch(InputMismatchException e) {
+				scan.nextLine();
+				System.out.println("Wrong Input. Enter again:");
+			}
+		}
+
+		Person.setGroundPossibility(probability);
+	};
+
+	private static void initializePersonToCellInfectionProbability() {
+		boolean input;
+		double probability = PERSON_TO_CELL_INFECTION_PROBABILITY;
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("Enter person to cell infection probability, number from 0.0 to 1.0:");
+		System.out.println("If you want to use default values enter -1:");
+
+		input = false;
+
+		while(!input) {
+			try {
+				probability = scan.nextDouble();
+
+				// Use default values
+				if(probability == -1) break;
+
+				if(probability > 1 || probability < 0)
+					throw new ArithmeticException("Probability can't be below 0 or above 1. Enter again: ");
+
+				input = true;
+			}
+			catch(ArithmeticException e) {
+				scan.nextLine();
+				System.out.println(e.getMessage());
+			}
+			catch(InputMismatchException e) {
+				scan.nextLine();
+				System.out.println("Wrong Input. Enter again:");
+			}
+		}
+
+		Cell.setInfectionPropability(probability);
+	};
+
+	private static double getImmunePeopleProbability() {
+		boolean input;
+		double probability = IMMUNE_PERSON_PROBABILITY;
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("Enter immune person probability, number from 0.0 to 1.0:");
+		System.out.println("If you want to use default values enter -1:");
+
+		input = false;
+
+		while(!input) {
+			try {
+				probability = scan.nextDouble();
+
+				// Use default values
+				if(probability == -1) break;
+
+				if(probability > 1 || probability < 0)
+					throw new ArithmeticException("Probability can't be below 0 or above 1. Enter again: ");
+
+				input = true;
+			}
+			catch(ArithmeticException e) {
+				scan.nextLine();
+				System.out.println(e.getMessage());
+			}
+			catch(InputMismatchException e) {
+				scan.nextLine();
+				System.out.println("Wrong Input. Enter again:");
+			}
+		}
+
+		return probability;
+	};
+
+	private static void initializeCellDisinfectionPeriod() {
+		boolean input;
+		int period = DISINFECTION_PERIOD;
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("Enter cell disinfection period in minutes, above 0:");
+		System.out.println("If you want to use default values enter -1:");
+
+		input = false;
+
+		while(!input) {
+			try {
+				period = scan.nextInt();
+
+				// Use default values
+				if(period == -1) break;
+
+				if(period <= 0)
+					throw new ArithmeticException("Period can't be below 0. Enter again: ");
+
+				input = true;
+			}
+			catch(ArithmeticException e) {
+				scan.nextLine();
+				System.out.println(e.getMessage());
+			}
+			catch(InputMismatchException e) {
+				scan.nextLine();
+				System.out.println("Wrong Input. Enter again:");
+			}
+		}
+
+		Cell.setDisinfectionPeriod(period);
+	};
+
+	private static int getNumOfInfectedPeopleOnStartUp(int people) {
+		// If no people return 0
+		if(people == 0) {
+			return 0;
+		}
+
+		boolean input;
+		int num = INFECTED_PEOPLE_ON_STARTUP;
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("Enter number of infected people on startup, above 1 and below " + people + ":");
+		System.out.println("If you want to use default values enter -1:");
+
+		input = false;
+
+		while(!input) {
+			try {
+				num = scan.nextInt();
+
+				// Use default values
+				if(num == -1) break;
+
+				if(num <= 1 || num > people)
+					throw new ArithmeticException("Ifected people can't be below 1 or above " + people + ". Enter again: ");
+
+				input = true;
+			}
+			catch(ArithmeticException e) {
+				scan.nextLine();
+				System.out.println(e.getMessage());
+			}
+			catch(InputMismatchException e) {
+				scan.nextLine();
+				System.out.println("Wrong Input. Enter again:");
+			}
+		}
+
+		return num;
+	};
+
+	private static int getSimulationDuration() {
+		boolean input;
+		int num = SIMULATION_DURATION;
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("Enter number steps/minutes the simulation should run for, above 1:");
+		System.out.println("If you want to use default values enter -1:");
+
+		input = false;
+
+		while(!input) {
+			try {
+				num = scan.nextInt();
+
+				// Use default values
+				if(num == -1) break;
+
+				if(num <= 1)
+					throw new ArithmeticException("Number of steps/minutes can't be below 1. Enter again: ");
+
+				input = true;
+			}
+			catch(ArithmeticException e) {
+				scan.nextLine();
+				System.out.println(e.getMessage());
+			}
+			catch(InputMismatchException e) {
+				scan.nextLine();
+				System.out.println("Wrong Input. Enter again:");
+			}
+		}
+
+		return num;
+	};
+
+
+	private static int numOfImmunePeopleInArr(Person[] people) {
+		int c = 0;
+
+		for(int i = 0; i < people.length; i ++) {
+			if(people[i] instanceof ImmunePerson) {
+				c ++;
+			}
+		}
+
+		return c;
+	}
+
+	public static void infectNumOfPeople(Person[] people, int num) {
+		for(int j = 0; j < num; j ++) {
+			for(int i = j; i < people.length; i ++) {
+				if(people[i] instanceof ImmunePerson) continue;
+				if(people[i].getIsInfected()) continue;
+
+				people[i].setInfected(true);
+				break;
+			}
+		}
+	}
+
 	public static void main(String args[]) {
 		Cell.setInfectionPropability(.1);
 		Cell.setDisinfectionPeriod(9);
 
 		Grid grid = initializeGrid();
-
 		Person[] people = initializePeople(grid.getHeight(), grid.getWidth());
-		people[0].setInfected(true);
+
+		// Initialize all variables
+		initializePersonToPersonInfectionProbability();
+		initializeCellToPersonInfectionProbability();
+		initializePersonToCellInfectionProbability();
+		initializeCellDisinfectionPeriod();
+
+		// Infect a number of people on start up
+		int numOfNonImmunePeople = people.length - numOfImmunePeopleInArr(people);
+		int numOfInfected = getNumOfInfectedPeopleOnStartUp(numOfNonImmunePeople);
+
+		infectNumOfPeople(people, numOfInfected);
+
+		int steps = getSimulationDuration();
 
 		// Draw once after initialization
 		draw(grid, people, 0);
 		
-		mainLoop(grid, people, 1200000);
+		mainLoop(grid, people, steps);
 	}
 
 }
