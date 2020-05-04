@@ -1,4 +1,4 @@
-package NazirisLarkou.hw5;
+package NazirisLarkou.hw6;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 

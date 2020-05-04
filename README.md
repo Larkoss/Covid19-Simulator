@@ -1,4 +1,4 @@
-# Homework 5 for Epl133
+# Homework 6 for Epl133
 ## By Andreas Naziris and Konstantinos Larkos
 
 This is a program for simulating infections.

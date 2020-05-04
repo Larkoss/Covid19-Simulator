@@ -1,4 +1,4 @@
-package NazirisLarkou.hw5;
+package NazirisLarkou.hw6;
 
 /**
  * A class representing a careful person

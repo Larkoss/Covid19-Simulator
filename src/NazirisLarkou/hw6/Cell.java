@@ -1,4 +1,4 @@
-package NazirisLarkou.hw5;
+package NazirisLarkou.hw6;
 import edu.princeton.cs.introcs.StdDraw;
 
 /**
