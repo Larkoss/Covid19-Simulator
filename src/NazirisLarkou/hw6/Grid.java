@@ -10,6 +10,8 @@ import edu.princeton.cs.introcs.StdDraw;
  *
  */
 public class Grid {
+	private char id;
+	
 	private Cell[][] cells;
 
 	private double doubleH; // Percentage the height of the box is according to canvas
