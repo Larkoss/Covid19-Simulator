@@ -10,7 +10,7 @@ import edu.princeton.cs.introcs.StdDraw;
  *
  */
 public class Grid {
-	private char id;
+	private char id ;
 	
 	private Cell[][] cells;
 
