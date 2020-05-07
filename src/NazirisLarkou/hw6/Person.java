@@ -51,6 +51,29 @@ public abstract class Person {
 	}
 
 	/**
+	 * Check if given position is occupied
+	 * 
+	 * @param x the double X position
+	 * @param y the double Y position
+	 * @param grid the char id of the grid
+	 * @param people the person array to search through
+	 * @return whether the position is occupied
+	 */
+	public static boolean isPositionOccupied(int x, int y, char grid, Person[] people) {
+		for(int i = 0; i < people.length; i ++) {
+			// If no person in this position
+			if(people[i] == null)
+				continue;
+
+			if(people[i].getX() == x && people[i].getY() == y && people[i].getGrid() == grid) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Setter for probability of infection from the ground.
 	 * @param possibility possibility of infection from the ground
 	 */

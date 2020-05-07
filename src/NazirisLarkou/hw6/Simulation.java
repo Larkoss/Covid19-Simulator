@@ -229,10 +229,13 @@ public class Simulation {
 	}
 
 	public static void main(String args[]) {
-		Initialization init = new Initialization();
+		// Initialize 3 grids
+		Grid gridA = new Grid(15, 10, 'a');
+		Grid gridB = new Grid(12, 12, 'b');
+		Grid gridC = new Grid(10, 15, 'c');
 
-		Grid grid = init.initializeGrid();
-		Person[] people = init.initializePeople(grid.getHeight(), grid.getWidth());
+		Initialization init = new Initialization();
+		Person[] people = init.initializePeople(new Grid[] { gridA, gridB, gridC });
 
 		// Initialize all variables
 		init.initializePersonToPersonInfectionProbability();

@@ -25,50 +25,19 @@ public class Initialization {
 	public int simulationDuration;
 
 	/**
-	 * Initialize grid.
+	 * Initialize people.
+	 * @param gridArr an grid array with all the created grids
 	 * @return returns the initialized grid.
 	 */
-	public Grid initializeGrid() {
-		Scanner scan = new Scanner(System.in);
-		int h = 0, w = 0;
+	public Person[] initializePeople(Grid[] gridArr) {
+		int size = 0, area = 0;
 		boolean input;
-		
-		System.out.println("Enter height and width of grid, between 1 and 15: ");
-		input = false;
-		while(!input) {
-			try {
-				h = scan.nextInt();
-				if(h > 15)
-					throw new ArithmeticException("Height must be below 15. Enter again: ");
-				if(h < 1)
-					throw new ArithmeticException("Height must be above 0. Enter again: ");
-				w = scan.nextInt();
-				if(w > 15)
-					throw new ArithmeticException("Width must be below 15. Enter again: ");
-				if(w < 1)
-					throw new ArithmeticException("Width must be above 0. Enter again: ");
-				input = true;
-			}
-			catch(ArithmeticException e) {
-				scan.nextLine();
-				System.out.println(e.getMessage());
-			}
-			catch(InputMismatchException e) {
-				scan.nextLine();
-				System.out.println("Height and width must be numbers. Enter again:");
-			}
+
+    // Get overall area
+		for(int i = 0; i < gridArr.length; i ++) {
+			area += gridArr[i].getArea();
 		}
 
-		return new Grid(h, w);
-	}
-
-	/**
-	 * Initialize people.
-	 * @return returns the initialized grid.
-	 */
-	public Person[] initializePeople(double height, double width) {
-		int size = 0, area = (int)(height * width);
-		boolean input;
 		Scanner scan = new Scanner(System.in);
 
 		System.out.println("Enter number of people, between 1 and " + area + ": ");
@@ -96,30 +65,29 @@ public class Initialization {
 		double otherChance = (1 - immuneChance) / 3.0;
 		
 		Person[] p = new Person[size];
-		double random;
-		int x = -1, y = -1;
-		boolean isCellEmpty;
+		double personTypeChance;
+		int x, y;
+    char gridId;
 
 		for (int i = 0; i < size; i++) {
-			isCellEmpty = false;
-			random = Math.random();
-			while(!isCellEmpty) {
-				isCellEmpty = true;
-				x = (int) Math.floor(Math.random() * (width));
-				y = (int) Math.floor(Math.random() * (height));
-				for(int j = 0; j < i; j++)
-					if(p[j].getX() == x && p[j].getY() == y)
-						isCellEmpty = false;
-			}
+			personTypeChance = Math.random();
+
+			do {
+				Grid selectedGrid = gridArr[(int) Math.floor(Math.random() * (gridArr.length))];
+
+        gridId = selectedGrid.getId();
+				x = (int) Math.floor(Math.random() * (selectedGrid.getWidth()));
+				y = (int) Math.floor(Math.random() * (selectedGrid.getHeight()));
+			} while(Person.isPositionOccupied(x, y, gridId, p));
 			
-			if(random <= otherChance)
-				p[i] = new BoomerPerson(x, y);
-			else if(random <= 2 * otherChance)
-				p[i] = new NormalPerson(x, y);
-			else if(random <= 3 * otherChance)
-				p[i] = new CarefulPerson(x, y);
+			if(personTypeChance <= otherChance)
+				p[i] = new BoomerPerson(x, y, gridId);
+			else if(personTypeChance <= 2 * otherChance)
+				p[i] = new NormalPerson(x, y, gridId);
+			else if(personTypeChance <= 3 * otherChance)
+				p[i] = new CarefulPerson(x, y, gridId);
 			else
-				p[i] = new ImmunePerson(x, y);
+				p[i] = new ImmunePerson(x, y, gridId);
 		}
 
 		return p;

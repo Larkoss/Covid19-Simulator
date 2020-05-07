@@ -76,23 +76,31 @@ public class Grid {
 	 * Getter for the height of the grid.
 	 * @return the height
 	 */
-	public double getHeight() {
-		return this.cells.length;
+	public int getHeight() {
+		return (int)this.cells.length;
 	}
 
 	/**
 	 * Getter for the width of the grid.
 	 * @return the width
 	 */
-	public double getWidth() {
-		return this.cells[0].length;
+	public int getWidth() {
+		return (int)this.cells[0].length;
+	}
+
+	/**
+	 * Getter for the area of the grid.
+	 * @return the area
+	 */
+	public int getArea() {
+		return (int)this.getWidth() * this.getHeight();
 	}
 
 	/**
 	 * Getter for the grid id.
 	 * @return the grid id
 	 */
-	public double getId() {
+	public char getId() {
 		return this.id;
 	}
 
