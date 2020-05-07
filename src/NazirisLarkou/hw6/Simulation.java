@@ -145,26 +145,20 @@ public class Simulation {
 		}
 	}
 
-	private static void draw(Grid[] gridArr, Person people[], int time) {
+	private static void draw(Grid[] gridArr, Person people[], int time, int arrPos) {
 		StdDraw.clear();
 		StdDraw.enableDoubleBuffering();
 
-		// TODO: Find a way to draw the 3 grids
-
-		for(int i = 0; i < people.length; i ++) {
-			Grid gridOfPerson = null;
-
-			// Get correct grid
-			for(int j = 0; j < gridArr.length; j ++) {
-				if(gridArr[j].getId() == people[i].getGrid()) {
-					gridOfPerson = gridArr[j];
-				}
+		gridArr[arrPos].drawGrid();
+		double doubleH = gridArr[arrPos].getDoubleH();
+		double doubleW = gridArr[arrPos].getDoubleW();
+		boolean isCurCellInfected = false;
+		for(int i = 0; i < people.length; i++) {
+			if(people[i].getGrid() == gridArr[arrPos].getId()) {
+				isCurCellInfected = gridArr[arrPos].isCellInfected((int)people[i].getX(), (int)people[i].getY(), time);
+				people[i].draw(doubleH, doubleW, isCurCellInfected);
 			}
-
-			boolean isCurCellInfected = gridOfPerson.isCellInfected((int)people[i].getX(), (int)people[i].getY(), time);
-			people[i].draw(gridOfPerson.getDoubleH(), gridOfPerson.getDoubleW(), isCurCellInfected);
 		}
-
 		StdDraw.show();
 		StdDraw.pause(1000);
 	}
@@ -182,8 +176,13 @@ public class Simulation {
 			for(int i = 0; i < gridArr.length; i ++) {
 				gridArr[i].updateCells(time);
 			}
-
-			draw(gridArr, people, time);
+			if(time % 15 >=0 && time % 10 <= 4)
+				draw(gridArr, people, time, 0);
+			else if(time % 15 >= 5 && time % 10 <= 9)
+				draw(gridArr, people, time, 1);
+			else
+				draw(gridArr, people, time, 2);
+				
 		}
 	}
 
@@ -285,7 +284,7 @@ public class Simulation {
 		int steps = init.getSimulationDuration();
 
 		// Draw once after initialization
-		draw(gridArr, people, 0);
+		draw(gridArr, people, 0, 0);
 		System.out.println("<---START OF SIMULATION--->");
 		
 		mainLoop(gridArr, people, steps);

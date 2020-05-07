@@ -14,7 +14,7 @@ public class Initialization {
 	private static final double IMMUNE_PERSON_PROBABILITY = .10;
 	private static final int DISINFECTION_PERIOD = 9;
 	private static final int INFECTED_PEOPLE_ON_STARTUP = 1;
-	private static final int SIMULATION_DURATION = 10;
+	private static final int SIMULATION_DURATION = 50;
 
 	public double personToPersonInfectionProbability;
 	public double cellToPersonInfectionProbability;
