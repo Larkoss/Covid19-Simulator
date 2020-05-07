@@ -206,9 +206,14 @@ public class Simulation {
 		}
 	}
 
-	private static void printInformation(Initialization init, Grid grid, Person[] people) {
-		System.out.print("Grid dimensions: ");
-		System.out.println(grid.getWidth() + "x" + grid.getWidth());
+	private static void printInformation(Initialization init, Grid[] gridArr, Person[] people) {
+		// Print grid information
+		for(int i = 0; i < gridArr.length; i ++) {
+			Grid curGrid = gridArr[i];
+
+			System.out.print("Grid dimensions for grid with id " + curGrid.getId() + ": ");
+			System.out.println(curGrid.getWidth() + "x" + curGrid.getWidth());
+		}
 
 		System.out.print("Number of people: ");
 		System.out.println(people.length);
@@ -277,6 +282,6 @@ public class Simulation {
 
 		System.out.println("<---END OF SIMULATION--->");
 
-		printInformation(init, grid, people);
+		printInformation(init, gridArr, people);
 	}
 }
