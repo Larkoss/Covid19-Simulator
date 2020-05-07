@@ -30,14 +30,25 @@ public class Simulation {
 	}
 	
 
-	private static Person[] getNeighbours(double x, double y, Person people[]) {
+	private static Person[] getNeighbours(double x, double y, char grid, Person people[]) {
 		Person[] neighbours = new Person[people.length];
 		int counter = 0;
 
 		for(int i = 0; i < people.length; i++) {
+			// Go to next person if not on the same grid
+			if(people[i].getGrid() != grid) {
+				continue;
+			}
+
 			double absDiffX = Math.abs(people[i].getX() - x);
 			double absDiffY = Math.abs(people[i].getY() - y);
-			if(absDiffX >= -1 && absDiffX <= 1 && absDiffY >= -1 && absDiffY <= 1 && absDiffX + absDiffY != 0) {
+			if(
+				absDiffX >= -1 &&
+				absDiffX <= 1 &&
+				absDiffY >= -1 &&
+				absDiffY <= 1 &&
+				absDiffX + absDiffY != 0
+			) {
 				neighbours[counter ++] = people[i];
 			}
 		}
@@ -50,29 +61,31 @@ public class Simulation {
 		return results;
 	}
 
-	private static boolean isCellEmpty(double x, double y, Person people[]) {
-		for(int i = 0; i < people.length; i++)
-			if(people[i].getX() == x && people[i].getY() == y)
-				return false;
-
-		return true;
-	}
-
 	/**
 	 * A function that handles movement of people.
 	 * @param people an array of Person objects
 	 * @param grid the grid
 	 * @param time the current time
 	 */
-	public static void movePeople(Person people[], Grid grid, int time) {
+	public static void movePeople(Person people[], Grid[] gridArr, int time) {
 		for(int i = 0; i < people.length; i ++) {
 			boolean shouldMove = people[i].shouldMove();
 
 			// Go to next person if this person shouldn't move or if surrounded.
 			double x = people[i].getX();
 			double y = people[i].getY();
+			char gridId = people[i].getGrid();
+			Grid grid = null;
 
-			Person[] neighbours = getNeighbours(x, y, people);
+			// Get grid the person belongs to
+			for(int j = 0; j < gridArr.length; j ++) {
+				if(gridArr[j].getId() == gridId) {
+					grid = gridArr[j];
+					break;
+				}
+			}
+
+			Person[] neighbours = getNeighbours(x, y, gridId, people);
 			int maxNeighbours = 8;
 
 			switch(numOfWallsTouching(x, y, grid)) {
@@ -126,7 +139,7 @@ public class Simulation {
 
 				newX = people[i].getX() + xOffset;
 				newY = people[i].getY() + yOffset;
-			} while (!isCellEmpty(newX, newY, people) || isOutsideGrid(newX, newY, grid) || absOffsetSum == 0);
+			} while (!Person.isPositionOccupied((int)newX, (int)newY, gridId, people) || isOutsideGrid(newX, newY, grid) || absOffsetSum == 0);
 
 			people[i].move(newX, newY);
 		}
@@ -152,10 +165,14 @@ public class Simulation {
 	 * @param people an array of Person objects
 	 * @param simulationDuration the int representing the duration of the simulation
 	 */
-	public static void mainLoop(Grid grid, Person people[], int simulationDuration) {
+	public static void mainLoop(Grid[] gridArr, Person people[], int simulationDuration) {
 		for(int time = 0; time < simulationDuration; time ++) {
-			movePeople(people, grid, time);
-			grid.updateCells(time);
+			movePeople(people, gridArr, time);
+
+			for(int i = 0; i < gridArr.length; i ++) {
+				gridArr[i].updateCells(time);
+			}
+
 			draw(grid, people, time);
 		}
 	}
@@ -233,9 +250,10 @@ public class Simulation {
 		Grid gridA = new Grid(15, 10, 'a');
 		Grid gridB = new Grid(12, 12, 'b');
 		Grid gridC = new Grid(10, 15, 'c');
+		Grid[] gridArr = { gridA, gridB, gridC };
 
 		Initialization init = new Initialization();
-		Person[] people = init.initializePeople(new Grid[] { gridA, gridB, gridC });
+		Person[] people = init.initializePeople(gridArr);
 
 		// Initialize all variables
 		init.initializePersonToPersonInfectionProbability();
@@ -255,11 +273,10 @@ public class Simulation {
 		draw(grid, people, 0);
 		System.out.println("<---START OF SIMULATION--->");
 		
-		mainLoop(grid, people, steps);
+		mainLoop(gridArr, people, steps);
 
 		System.out.println("<---END OF SIMULATION--->");
 
 		printInformation(init, grid, people);
 	}
-
 }

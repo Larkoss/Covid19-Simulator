@@ -109,7 +109,7 @@ public abstract class Person {
 	 * Getter for grid id
 	 * @return the grid id
 	 */
-	public double getGrid() {
+	public char getGrid() {
 		return grid;
 	}
 

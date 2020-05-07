@@ -33,7 +33,7 @@ public class Initialization {
 		int size = 0, area = 0;
 		boolean input;
 
-    // Get overall area
+		// Get overall area
 		for(int i = 0; i < gridArr.length; i ++) {
 			area += gridArr[i].getArea();
 		}
@@ -67,7 +67,7 @@ public class Initialization {
 		Person[] p = new Person[size];
 		double personTypeChance;
 		int x, y;
-    char gridId;
+		char gridId;
 
 		for (int i = 0; i < size; i++) {
 			personTypeChance = Math.random();
@@ -75,7 +75,7 @@ public class Initialization {
 			do {
 				Grid selectedGrid = gridArr[(int) Math.floor(Math.random() * (gridArr.length))];
 
-        gridId = selectedGrid.getId();
+				gridId = selectedGrid.getId();
 				x = (int) Math.floor(Math.random() * (selectedGrid.getWidth()));
 				y = (int) Math.floor(Math.random() * (selectedGrid.getHeight()));
 			} while(Person.isPositionOccupied(x, y, gridId, p));
