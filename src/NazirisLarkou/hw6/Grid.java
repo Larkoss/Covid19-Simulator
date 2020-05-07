@@ -96,26 +96,26 @@ public class Grid {
 		return this.id;
 	}
 
-  /**
-   * Getter for if cell is infected
-   * @param x the x coordinate of the cell
-   * @param y the y coordinate of the cell
-   * @param time int, the current time
-   * @return is cell infected
-   */
-  public boolean isCellInfected(int x, int y, int time) {
-    return this.cells[y][x].getIsInfected(time);
-  }
+	/**
+	 * Getter for if cell is infected
+	 * @param x the x coordinate of the cell
+	 * @param y the y coordinate of the cell
+	 * @param time int, the current time
+	 * @return is cell infected
+	 */
+	public boolean isCellInfected(int x, int y, int time) {
+		return this.cells[y][x].getIsInfected(time);
+	}
 
-  /**
-   * Infect cell.
-   * @param x the x coordinate of the cell
-   * @param y the y coordinate of the cell
-   * @param time int, the current time
-   */
-  public void infectCell(int x, int y, int time) {
-    this.cells[y][x].infect(time);
-  }
+	/**
+	 * Infect cell.
+	 * @param x the x coordinate of the cell
+	 * @param y the y coordinate of the cell
+	 * @param time int, the current time
+	 */
+	public void infectCell(int x, int y, int time) {
+		this.cells[y][x].infect(time);
+	}
 
 	/**
 	 * Update all cells.
@@ -129,21 +129,21 @@ public class Grid {
 		}
 	}
 
-  /**
-   * Draw the grid.
-   */
+	/**
+	 * Draw the grid.
+	 */
 	public void drawGrid() {
 		for(int i = 0; i < this.getHeight(); i ++) {
 			for(int j = 0; j < this.getWidth(); j ++) {
 				this.cells[i][j].draw(j, i, doubleW, doubleH);
 			}
 		}
-    // Draws horizontal lines
-    for (double j = 0; j < 1; j += doubleH)
-      StdDraw.line(0, j, 1, j);
+		// Draws horizontal lines
+		for (double j = 0; j < 1; j += doubleH)
+			StdDraw.line(0, j, 1, j);
 
-    // Draws vertical lines
-    for (double i = 0; i < 1; i += doubleW)
-      StdDraw.line(i, 0, i, 1);
+		// Draws vertical lines
+		for (double i = 0; i < 1; i += doubleW)
+			StdDraw.line(i, 0, i, 1);
 	}
 }

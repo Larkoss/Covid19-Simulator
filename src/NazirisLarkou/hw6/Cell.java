@@ -120,5 +120,5 @@ public class Cell {
 			StdDraw.filledRectangle((x * doubleW) + (doubleW / 2), (y * doubleH) + (doubleH / 2), doubleW / 2, doubleH / 2);
 			StdDraw.setPenColor();
 		}
-  }
+	}
 }

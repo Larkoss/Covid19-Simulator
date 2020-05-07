@@ -9,14 +9,14 @@ package NazirisLarkou.hw6;
 public class ImmunePerson extends Person {
 	{
 		type = "Immune";
-  }
+	}
 
-  /**
-   * Class constructor specifying x and y
-   * @param x the double X position
-   * @param y the double Y position
-   */
-  public ImmunePerson(int x, int y, char grid) {
-    super(x, y, grid, 0.8, 0);
-  }
+	/**
+	 * Class constructor specifying x and y
+	 * @param x the double X position
+	 * @param y the double Y position
+	 */
+	public ImmunePerson(int x, int y, char grid) {
+		super(x, y, grid, 0.8, 0);
+	}
 }
