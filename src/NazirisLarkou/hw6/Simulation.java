@@ -154,12 +154,13 @@ public class Simulation {
 		double doubleW = gridArr[arrPos].getDoubleW();
 		boolean isCurCellInfected = false;
 		for(int i = 0; i < people.length; i++) {
-			if(people[i].getGrid() == gridArr[arrPos].getId())
+			if(people[i].getGrid() == gridArr[arrPos].getId()) {
 				isCurCellInfected = gridArr[arrPos].isCellInfected((int)people[i].getX(), (int)people[i].getY(), time);
 				people[i].draw(doubleH, doubleW, isCurCellInfected);
+			}
 		}
 		StdDraw.show();
-		StdDraw.pause(100);
+		StdDraw.pause(1000);
 	}
 
 	/**
