@@ -21,12 +21,17 @@ public class Grid {
 
 
 	/**
-	 * Constructor that initializes the static doubles
+	 * Constructor that specifies height, width and id.
+	 *
+	 * For height and width the properties initialised are doubleH and doubleW
 	 * 
-	 * @param h Y-axis
-	 * @param w X-axis
+	 * @param h the height of the grid
+	 * @param w the width of the grid
+	 * @param id the char id of the grid
 	 */
-	public Grid(int h, int w) {
+	public Grid(int h, int w, char id) {
+		this.id = id;
+
 		this.cells = new Cell[h][w];
 
 		// Populate table
@@ -81,6 +86,14 @@ public class Grid {
 	 */
 	public double getWidth() {
 		return this.cells[0].length;
+	}
+
+	/**
+	 * Getter for the grid id.
+	 * @return the grid id
+	 */
+	public double getId() {
+		return this.id;
 	}
 
   /**

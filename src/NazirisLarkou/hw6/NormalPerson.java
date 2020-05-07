@@ -17,7 +17,7 @@ public class NormalPerson extends Person {
 	 * @param x the double X position
 	 * @param y the double Y position
 	 */
-	public NormalPerson(int x, int y) {
-		super(x, y, 0.7, 0.66);
+	public NormalPerson(int x, int y, char grid) {
+		super(x, y, grid, 0.7, 0.66);
 	}
 }

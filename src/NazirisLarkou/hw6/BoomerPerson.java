@@ -17,7 +17,7 @@ public class BoomerPerson extends Person {
 	 * @param x the double X position
 	 * @param y the double Y position
 	 */
-	public BoomerPerson(double x, double y) {
-		super(x, y, 0.5, 1);
+	public BoomerPerson(double x, double y, char grid) {
+		super(x, y, grid, 0.5, 1);
 	}
 }

@@ -10,6 +10,7 @@ import edu.princeton.cs.introcs.StdDraw;
  */
 public abstract class Person {
 	private double x, y;
+	private char grid;
 	private boolean infected = false;
 	private double mobility;
 	private double vulnerability;
@@ -24,10 +25,12 @@ public abstract class Person {
 	 * 
 	 * @param x the double X position
 	 * @param y the double Y position
+	 * @param grid the char grid id the person belongs to
 	 */
-	public Person(double x, double y) {
+	public Person(double x, double y, char grid) {
 		this.x = x;
 		this.y = y;
+		this.grid = grid;
 	}
 	
 	/**
@@ -35,12 +38,14 @@ public abstract class Person {
 	 * 
 	 * @param x the double X position
 	 * @param y the double Y position
+	 * @param grid the char grid id the person belongs to
 	 * @param mobility the double mobility
 	 * @param vulnerability the double vulnerability
 	 */
-	public Person(double x, double y, double mobility, double vulnerability) {
+	public Person(double x, double y, char grid, double mobility, double vulnerability) {
 		this.x = x;
 		this.y = y;
+		this.grid = grid;
 		this.mobility = mobility;
 		this.vulnerability = vulnerability;
 	}
@@ -78,6 +83,14 @@ public abstract class Person {
 	}
 
 	/**
+	 * Getter for grid id
+	 * @return the grid id
+	 */
+	public double getGrid() {
+		return grid;
+	}
+
+	/**
 	 * Setter for x and y.
 	 * @param x the double x coordinate
 	 * @param y the double y coordinate
@@ -85,6 +98,14 @@ public abstract class Person {
 	public void move(double x, double y) {
 		this.x = x;
 		this.y = y;
+	}
+
+	/**
+	 * Setter for grid.
+	 * @param grid the char grid id
+	 */
+	public void setGrid(char grid) {
+		this.grid = grid;
 	}
 
 	/**

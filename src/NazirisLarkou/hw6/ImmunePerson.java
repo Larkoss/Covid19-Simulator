@@ -16,7 +16,7 @@ public class ImmunePerson extends Person {
    * @param x the double X position
    * @param y the double Y position
    */
-  public ImmunePerson(int x, int y) {
-    super(x, y, 0.8, 0);
+  public ImmunePerson(int x, int y, char grid) {
+    super(x, y, grid, 0.8, 0);
   }
 }
