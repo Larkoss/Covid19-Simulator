@@ -114,6 +114,10 @@ public class Grid {
 	public boolean isCellInfected(int x, int y, int time) {
 		return this.cells[y][x].getIsInfected(time);
 	}
+	
+	public boolean isCellAirport(int x, int y) {
+		return this.cells[y][x].isAirport();
+	}
 
 	/**
 	 * Infect cell.
@@ -123,6 +127,10 @@ public class Grid {
 	 */
 	public void infectCell(int x, int y, int time) {
 		this.cells[y][x].infect(time);
+	}
+	
+	public void setAirport(int x, int y) {
+		this.cells[y][x].setAirport();
 	}
 
 	/**

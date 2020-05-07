@@ -13,12 +13,14 @@ public class Cell {
 	private int timeInfected;
 	private static int disinfectionPeriod;
 	private static double infectionPropability;
+	private boolean isAirport;
 
 	/**
 	 * Class contructor.
 	 */
 	public Cell() {
 		this.isInfected = false;
+		this.isAirport = false;
 	}
 
 	/**
@@ -65,6 +67,14 @@ public class Cell {
 	 */
 	public int getDisinfectionPeriod() {
 		return Cell.disinfectionPeriod;
+	}
+	
+	public void setAirport() {
+		this.isAirport = true;
+	}
+	
+	public boolean isAirport() {
+		return this.isAirport;
 	}
 
 	/**
@@ -115,7 +125,12 @@ public class Cell {
 	 * @param doubleH the double height of the cell
 	 */
 	public void draw(double x, double y, double doubleW, double doubleH) {
-		if(this.isInfected) {
+		if(this.isAirport) {
+			StdDraw.setPenColor(StdDraw.GREEN);
+			StdDraw.filledRectangle((x * doubleW) + (doubleW / 2), (y * doubleH) + (doubleH / 2), doubleW / 2, doubleH / 2);
+			StdDraw.setPenColor();
+		}
+		else if(this.isInfected) {
 			StdDraw.setPenColor(StdDraw.ORANGE);
 			StdDraw.filledRectangle((x * doubleW) + (doubleW / 2), (y * doubleH) + (doubleH / 2), doubleW / 2, doubleH / 2);
 			StdDraw.setPenColor();
