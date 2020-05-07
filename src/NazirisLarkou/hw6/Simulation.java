@@ -176,9 +176,9 @@ public class Simulation {
 			for(int i = 0; i < gridArr.length; i ++) {
 				gridArr[i].updateCells(time);
 			}
-			if(time % 10 >=0 && time % 10 <= 3)
+			if(time % 15 >=0 && time % 10 <= 4)
 				draw(gridArr, people, time, 0);
-			else if(time % 10 >= 4 && time % 10 <= 6)
+			else if(time % 15 >= 5 && time % 10 <= 9)
 				draw(gridArr, people, time, 1);
 			else
 				draw(gridArr, people, time, 2);
