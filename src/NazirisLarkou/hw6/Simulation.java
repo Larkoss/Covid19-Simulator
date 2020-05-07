@@ -157,7 +157,7 @@ public class Simulation {
 			// Get correct grid
 			for(int j = 0; j < gridArr.length; j ++) {
 				if(gridArr[j].getId() == people[i].getGrid()) {
-					gridOfPerson = gridArr[i];
+					gridOfPerson = gridArr[j];
 				}
 			}
 
