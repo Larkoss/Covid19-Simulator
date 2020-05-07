@@ -139,7 +139,7 @@ public class Simulation {
 
 				newX = people[i].getX() + xOffset;
 				newY = people[i].getY() + yOffset;
-			} while (!Person.isPositionOccupied((int)newX, (int)newY, gridId, people) || isOutsideGrid(newX, newY, grid) || absOffsetSum == 0);
+			} while (Person.isPositionOccupied((int)newX, (int)newY, gridId, people) || isOutsideGrid(newX, newY, grid) || absOffsetSum == 0);
 
 			people[i].move(newX, newY);
 		}
