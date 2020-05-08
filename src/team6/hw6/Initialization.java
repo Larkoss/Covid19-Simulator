@@ -1,4 +1,4 @@
-package NazirisLarkou.hw6;
+package team6.hw6;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
