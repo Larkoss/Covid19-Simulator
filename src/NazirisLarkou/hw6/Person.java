@@ -149,18 +149,22 @@ public abstract class Person {
 	 * @param doubleW the height of the person on the canvas
 	 * @param isCellInfected is the cell beneath the person infected
 	 */
-	public void draw(double doubleH, double doubleW, boolean isCellInfected) {
+	public void draw(double doubleH, double doubleW, boolean isCellInfected, boolean isCellAirport) {
 		String name = type;
 
 		if(this.infected) {
 			name += "Infected";
-			if(isCellInfected) {
+			if(isCellAirport)
+				this.drawImg(doubleH, doubleW, name + "Airport");
+			else if(isCellInfected) {
 				this.drawImg(doubleH, doubleW, name + "Both");
 			} else {
 				this.drawImg(doubleH, doubleW, name);
 			}
 		} else {
-			if(isCellInfected) {
+			if(isCellAirport)
+				this.drawImg(doubleH, doubleW, name + "Airport");
+			else if(isCellInfected) {
 				this.drawImg(doubleH, doubleW, name + "InfectedFloor");
 			} else {
 				this.drawImg(doubleH, doubleW, name);

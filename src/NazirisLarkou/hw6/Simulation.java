@@ -116,9 +116,11 @@ public class Simulation {
 
 			// Infect person
 			people[i].infect(grid.isCellInfected((int)x, (int)y, time), infectedNeighbours);
-			
 
-			if(!shouldMove || neighbours.length == maxNeighbours) {
+			boolean isAirport = grid.isCellAirport((int)x, (int)y);
+
+			// If shouldn't move or if surrounded and not on an airport
+			if(!shouldMove || (neighbours.length == maxNeighbours && !isAirport)) {
 				if(people[i].getIsInfected()) {
 					grid.infectCell((int)people[i].getX(), (int)people[i].getY(), time);
 				}
@@ -126,20 +128,78 @@ public class Simulation {
 				continue;
 			}
 
-			double newX;
-			double newY;
-			double xOffset;
-			double yOffset;
-			double absOffsetSum;
-			do {
-				// Offset of -1 , 0 or 1
-				xOffset = Math.floor(Math.random() * 3) - 1;
-				yOffset = Math.floor(Math.random() * 3) - 1;
-				absOffsetSum = Math.abs(xOffset) + Math.abs(yOffset);
+			double newX = x;
+			double newY = y;
+			double xOffset = 0;
+			double yOffset = 0;
+			double absOffsetSum = 0;
 
-				newX = people[i].getX() + xOffset;
-				newY = people[i].getY() + yOffset;
-			} while (Person.isPositionOccupied((int)newX, (int)newY, gridId, people) || isOutsideGrid(newX, newY, grid) || absOffsetSum == 0);
+			if(isAirport) {
+				int nextGridPopulation = 0;
+				int nextGridArea = 0;
+				char nextGridId = ' ';
+
+				// Get next grid
+				for(int k = 0; k < gridArr.length; k ++) {
+					if(gridArr[k].getId() == gridId) {
+						Grid nextGrid = gridArr[(k + 1) % gridArr.length];
+						nextGridArea = nextGrid.getArea();
+						nextGridId = nextGrid.getId();
+						break;
+					}
+				}
+
+				// Calculate next grid population and area
+				for(int j = 0; j < people.length; j ++) {
+					if(people[j].getGrid() == nextGridId) {
+						nextGridPopulation ++;
+					}
+				}
+
+				// If next grid is not full transport perosn to next
+				if(nextGridArea > nextGridPopulation) {
+					do {
+						// Offset of -1 , 0 or 1
+						xOffset = Math.floor(Math.random() * 3) - 1;
+						yOffset = Math.floor(Math.random() * 3) - 1;
+						absOffsetSum = Math.abs(xOffset) + Math.abs(yOffset);
+		
+						newX = people[i].getX() + xOffset;
+						newY = people[i].getY() + yOffset;
+
+						if(isOutsideGrid(newX, newY, grid)) {
+							if(grid.getId() == 'a') {
+								people[i].setGrid('b');
+								grid = gridArr[1];
+							}
+							else if(grid.getId() == 'b') {
+								people[i].setGrid('c');
+								grid = gridArr[2];
+							}
+							else {
+								people[i].setGrid('a');
+								grid = gridArr[0];
+							}
+							gridId = people[i].getGrid();
+
+							do {
+								newX = (int) Math.floor(Math.random() * (grid.getWidth()));
+								newY = (int) Math.floor(Math.random() * (grid.getHeight()));
+							}while(Person.isPositionOccupied((int)newX, (int)newY, gridId, people));
+						}
+					} while (Person.isPositionOccupied((int)newX, (int)newY, gridId, people)  || absOffsetSum == 0 || isOutsideGrid(newX, newY, grid));
+				}
+			} else {
+				do {
+					// Offset of -1 , 0 or 1
+					xOffset = Math.floor(Math.random() * 3) - 1;
+					yOffset = Math.floor(Math.random() * 3) - 1;
+					absOffsetSum = Math.abs(xOffset) + Math.abs(yOffset);
+	
+					newX = people[i].getX() + xOffset;
+					newY = people[i].getY() + yOffset;
+				} while (Person.isPositionOccupied((int)newX, (int)newY, gridId, people) || isOutsideGrid(newX, newY, grid) || absOffsetSum == 0);
+			}
 
 			people[i].move(newX, newY);
 		}
@@ -152,11 +212,12 @@ public class Simulation {
 		gridArr[arrPos].drawGrid();
 		double doubleH = gridArr[arrPos].getDoubleH();
 		double doubleW = gridArr[arrPos].getDoubleW();
-		boolean isCurCellInfected = false;
+		boolean isCurCellInfected = false, isAirport = false;
 		for(int i = 0; i < people.length; i++) {
 			if(people[i].getGrid() == gridArr[arrPos].getId()) {
 				isCurCellInfected = gridArr[arrPos].isCellInfected((int)people[i].getX(), (int)people[i].getY(), time);
-				people[i].draw(doubleH, doubleW, isCurCellInfected);
+				isAirport = gridArr[arrPos].isCellAirport((int)people[i].getX(), (int)people[i].getY());
+				people[i].draw(doubleH, doubleW, isCurCellInfected, isAirport);
 			}
 		}
 		StdDraw.show();
@@ -171,14 +232,15 @@ public class Simulation {
 	 */
 	public static void mainLoop(Grid[] gridArr, Person people[], int simulationDuration) {
 		for(int time = 0; time < simulationDuration; time ++) {
+			System.out.println("Step:\t" + time);
 			movePeople(people, gridArr, time);
 
 			for(int i = 0; i < gridArr.length; i ++) {
 				gridArr[i].updateCells(time);
 			}
-			if(time % 15 >=0 && time % 10 <= 4)
+			if(time % 15 >=0 && time % 15 <= 4)
 				draw(gridArr, people, time, 0);
-			else if(time % 15 >= 5 && time % 10 <= 9)
+			else if(time % 15 >= 5 && time % 15 <= 9)
 				draw(gridArr, people, time, 1);
 			else
 				draw(gridArr, people, time, 2);
@@ -262,8 +324,20 @@ public class Simulation {
 	public static void main(String args[]) {
 		// Initialize 3 grids
 		Grid gridA = new Grid(15, 10, 'a');
+		gridA.setAirport(6, 14);
+		gridA.setAirport(5, 14);
+		gridA.setAirport(4, 14);
 		Grid gridB = new Grid(12, 12, 'b');
+		gridB.setAirport(6, 0);
+		gridB.setAirport(5, 0);
+		gridB.setAirport(4, 0);
+		gridB.setAirport(3, 0);
 		Grid gridC = new Grid(10, 15, 'c');
+		gridC.setAirport(14,7);
+		gridC.setAirport(14,6);
+		gridC.setAirport(14,5);
+		gridC.setAirport(14,4);
+		gridC.setAirport(14,3);
 		Grid[] gridArr = { gridA, gridB, gridC };
 
 		Initialization init = new Initialization();

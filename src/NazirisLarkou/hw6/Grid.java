@@ -46,13 +46,13 @@ public class Grid {
 			double num = (double)h / w;
 			this.doubleH = 1.0 / h;
 			this.doubleW = 1.0 / h * num;
-			StdDraw.setCanvasSize((int)(750.0/h*w), 750);
+			StdDraw.setCanvasSize((int)(1000.0/h*w), 1000);
 		}
 		else {
 			double num = (double)w / h;
 			this.doubleH = 1.0 / w * num;
 			this.doubleW = 1.0 / w;
-			StdDraw.setCanvasSize(750, (int)(750.0/w*h));
+			StdDraw.setCanvasSize(1000, (int)(1000.0/w*h));
 		}
 	}
 
@@ -114,6 +114,10 @@ public class Grid {
 	public boolean isCellInfected(int x, int y, int time) {
 		return this.cells[y][x].getIsInfected(time);
 	}
+	
+	public boolean isCellAirport(int x, int y) {
+		return this.cells[y][x].isAirport();
+	}
 
 	/**
 	 * Infect cell.
@@ -123,6 +127,10 @@ public class Grid {
 	 */
 	public void infectCell(int x, int y, int time) {
 		this.cells[y][x].infect(time);
+	}
+	
+	public void setAirport(int x, int y) {
+		this.cells[y][x].setAirport();
 	}
 
 	/**
