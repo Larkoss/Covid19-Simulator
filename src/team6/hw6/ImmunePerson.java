@@ -1,4 +1,4 @@
-package NazirisLarkou.hw6;
+package team6.hw6;
 
 /**
  * A class representing an immune to the disease person
